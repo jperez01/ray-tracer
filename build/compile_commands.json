@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/color.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/color.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/color.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/tuple.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/tuple.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/tuple.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/intersection.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/intersection.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/intersection.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/intersections.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/intersections.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/intersections.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/ray.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/ray.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/ray.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/primitives.dir/src/primitives/matrix.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/primitives/matrix.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/primitives/matrix.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/display.dir/src/display/canvas.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/display/canvas.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/display/canvas.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/shapes.dir/src/shapes/sphere.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/shapes/sphere.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/shapes/sphere.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/images.dir/src/images/pmm_writer.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/images/pmm_writer.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/images/pmm_writer.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/lights.dir/src/lights/point_light.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/lights/point_light.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/lights/point_light.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/lights.dir/src/lights/direction_light.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/lights/direction_light.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/lights/direction_light.cpp"
+},
+{
+  "directory": "/Users/juanperez/documents/projects/ray-tracer/build",
+  "command": "/usr/bin/clang++  -I/Users/juanperez/documents/projects/ray-tracer/src -isystem /usr/local/include -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17 -o CMakeFiles/imageWriter.dir/src/main.cpp.o -c /Users/juanperez/documents/projects/ray-tracer/src/main.cpp",
+  "file": "/Users/juanperez/documents/projects/ray-tracer/src/main.cpp"
+}
+]

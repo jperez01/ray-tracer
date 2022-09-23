@@ -1,0 +1,2 @@
+/usr/bin/ar qc libimages.a CMakeFiles/images.dir/src/images/pmm_writer.cpp.o
+/usr/bin/ranlib libimages.a
