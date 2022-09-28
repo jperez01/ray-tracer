@@ -1,2 +1,0 @@
-/usr/bin/ar qc libprimitives.a CMakeFiles/primitives.dir/src/primitives/color.cpp.o CMakeFiles/primitives.dir/src/primitives/tuple.cpp.o CMakeFiles/primitives.dir/src/primitives/intersection.cpp.o CMakeFiles/primitives.dir/src/primitives/intersections.cpp.o CMakeFiles/primitives.dir/src/primitives/ray.cpp.o CMakeFiles/primitives.dir/src/primitives/matrix.cpp.o
-/usr/bin/ranlib libprimitives.a

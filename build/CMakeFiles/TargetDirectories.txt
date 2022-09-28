@@ -1,9 +1,0 @@
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/primitives.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/display.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/shapes.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/images.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/lights.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/imageWriter.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/test.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/edit_cache.dir
-/Users/juanperez/documents/projects/ray-tracer/build/CMakeFiles/rebuild_cache.dir

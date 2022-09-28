@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblights.a CMakeFiles/lights.dir/src/lights/point_light.cpp.o CMakeFiles/lights.dir/src/lights/direction_light.cpp.o
-/usr/bin/ranlib liblights.a
