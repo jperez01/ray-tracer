@@ -17,6 +17,6 @@ class PointLight {
         Color m_color;
 };
 
-Color calculateColorFromPoint(PointLight light, Tuple normal, Tuple position, Shape *shape);
+Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Shape *shape);
 
 #endif

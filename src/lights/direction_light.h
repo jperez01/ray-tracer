@@ -17,6 +17,6 @@ class DirectionalLight {
         Color m_color;
 };
 
-Color calculateColorFromDirection(DirectionalLight light, Tuple normal, Shape *shape);
+Color calculateColorFromDirection(DirectionalLight &light, Tuple &normal, const Tuple &eye, Shape *shape);
 
 #endif

@@ -1,9 +1,12 @@
-#include "primitives/intersection.h"
 #include "primitives/intersections.h"
 
 #include <optional>
 
-Intersections::Intersections(std::vector<Intersection> intersections) {
+Intersections::Intersections() {
+    m_intersections = std::vector<Intersection>{};
+}
+
+Intersections::Intersections(std::vector<Intersection> &intersections) {
     m_intersections = intersections;
 }
 
@@ -15,15 +18,19 @@ Intersection Intersections::operator[](int index) {
     return m_intersections[index];
 }
 
-std::optional<Intersection> Intersections::hit() {
-    if (!m_intersections.size()) return std::nullopt;
+void Intersections::add(Intersection &intersection) {
+    m_intersections.push_back(intersection);
+}
 
-    std::optional<Intersection> hit = std::nullopt;
+Intersection Intersections::hit() {
+    if (!m_intersections.size()) return Intersection{};
+
+    Intersection hit;
     for (Intersection intersection : m_intersections) {
-        if (intersection.time() < 0) continue;
+        if (intersection.m_time < 0) continue;
 
-        if (hit == std::nullopt || intersection.time() < hit.value().time()) {
-            hit = std::optional<Intersection>(intersection);
+        if (hit.m_time < 0 || intersection.m_time < hit.m_time) {
+            hit = intersection;
         }
     }
 

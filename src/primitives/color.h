@@ -24,4 +24,6 @@ class Color : public Tuple {
 
 };
 
+Color operator*(float mult, Color color);
+
 #endif

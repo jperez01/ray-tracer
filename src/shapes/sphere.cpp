@@ -1,5 +1,4 @@
 #include "shapes/sphere.h"
-#include "primitives/intersection.h"
 #include "primitives/intersections.h"
 #include "primitives/ray.h"
 #include "primitives/tuple.h"
@@ -7,62 +6,62 @@
 #include <math.h>
 #include <iostream>
 
-Sphere::Sphere(Tuple center, float radius) {
+Sphere::Sphere(Tuple &center, float radius) {
     m_center = center;
     m_radius = radius;
-    m_color = Color(1.0, 0.0, 0.0);
+    m_material = Material();
     m_transform = std::optional<Matrix>{};
 }
 
-Sphere::Sphere(Tuple center, float radius, Color color) {
+Sphere::Sphere(Tuple &center, float radius, const Material &material) {
     m_center = center;
     m_radius = radius;
-    m_color = color;
+    m_material = material;
     m_transform = std::optional<Matrix>{};
 }
 
-Sphere::Sphere(Tuple center, float radius, Color color, Matrix &transform) {
-    m_center = center;
+Sphere::Sphere(Tuple &center, float radius, const Material &material, Matrix &transform) {
+    m_center =  center;
     m_radius = radius;
-    m_color = color;
-    m_transform = std::optional<Matrix>{transform};
+    m_material = material;
+    m_transform = std::optional<Matrix>(transform);
 }
 
-Intersections Sphere::findIntersection(Ray &givenRay) {
+void findIntersection(Sphere &sphere, Ray &givenRay, Intersections &solutions) {
     Ray ray;
-    if (m_transform.has_value()) {
-        Matrix transform = m_transform.value().inverse();
+    if (sphere.transform().has_value()) {
+        Matrix transform = sphere.transform().value().inverse();
         ray = transformRay(givenRay, transform);
     } else ray = givenRay;
 
-    Tuple from_sphere_to_ray = ray.origin() - this->center();
+    Tuple from_sphere_to_ray = ray.origin() - sphere.center();
 
     float a = dot(ray.direction(), ray.direction());
     float b = 2 * dot(ray.direction(), from_sphere_to_ray);
-    float c = dot(from_sphere_to_ray, from_sphere_to_ray) - this->radius();
+    float c = dot(from_sphere_to_ray, from_sphere_to_ray) - sphere.radius();
 
     float discriminant = b * b - 4 * a * c;
 
-    if (discriminant < 0) return Intersections(std::vector<Intersection>{});
+    if (discriminant < 0) return;
 
     float two_a = 2 * a;
     float sqrt_dis = sqrt(discriminant);
 
-    Intersection inter1 = Intersection((- b + sqrt_dis) / two_a, this);
-    Intersection inter2 = Intersection((- b - sqrt_dis) / two_a, this);
+    Intersection inter1{(-b + sqrt_dis) / two_a};
+    Intersection inter2{(-b - sqrt_dis) / two_a};
 
-    std::vector<Intersection> solutions;
-    if (inter1.time() > inter2.time()) {
-        solutions.push_back(inter2);
-        solutions.push_back(inter1);
+    if (inter1.m_time > inter2.m_time) {
+        solutions.add(inter2);
+        solutions.add(inter1);
     } else {
-        solutions.push_back(inter1);
-        solutions.push_back(inter2);
+        solutions.add(inter1);
+        solutions.add(inter2);
     }
-
-    return Intersections(solutions);
 }
 
-Tuple Sphere::surfaceNormal(Tuple position) {
-    return (position - m_center).normalized();
+Tuple Sphere::surfaceNormal(Tuple &position) {
+    Tuple normal = position - m_center;
+    if (m_transform.has_value()) {
+        return (m_transform.value().inverse().transpose() * normal).normalized();
+    } else return normal.normalized();
 }

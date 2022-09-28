@@ -23,3 +23,7 @@ Color Color::operator*(float mult) {
 Color Color::operator+=(const Color second) {
     return Color(this->r() + second.r(), this->g() + second.g(), this->b() + second.b());
 }
+
+Color operator*(float mult, Color color) {
+    return Color(color.r() * mult, color.g() * mult, color.b() * mult);
+}

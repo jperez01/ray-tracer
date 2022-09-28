@@ -27,6 +27,7 @@ target_include_directories(display PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_library(
     shapes
+    src/shapes/material.cpp
     src/shapes/shape.h
     src/shapes/sphere.cpp
 )

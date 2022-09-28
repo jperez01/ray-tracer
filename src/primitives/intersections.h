@@ -3,13 +3,25 @@
 
 #include <vector>
 #include <optional>
-#include "primitives/intersection.h"
+
+#include "shapes/shape.h"
+
+struct Intersection {
+    float m_time;
+    Shape *m_shape;
+
+    Intersection() : m_time(-1.0), m_shape(nullptr) {}
+    Intersection(float time) : m_time(time), m_shape(nullptr) {}
+    Intersection(float time, Shape *shape) : m_time(time), m_shape(shape) {}
+};
 
 class Intersections {
     public:
-        Intersections(std::vector<Intersection> intersections);
-        std::optional<Intersection> hit();
+        Intersections();
+        Intersections(std::vector<Intersection> &intersections);
+        Intersection hit();
         int size();
+        void add(Intersection &intersection);
         Intersection operator[](int index);
 
     private:

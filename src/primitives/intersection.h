@@ -2,6 +2,7 @@
 #define RTC_INTER
 
 #include "shapes/shape.h"
+#include "tuple.h"
 
 class Intersection {
     public:

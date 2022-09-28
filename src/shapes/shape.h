@@ -1,14 +1,18 @@
 #ifndef RTC_SHAPE
 #define RTC_SHAPE
 
+#include <optional>
 #include "primitives/tuple.h"
-#include "primitives/color.h"
+#include "primitives/matrix.h"
+#include "shapes/material.h"
 
 class Shape {
     public:
-        virtual Tuple surfaceNormal(Tuple position) = 0;
+        virtual Tuple surfaceNormal(Tuple &position) = 0;
         virtual ~Shape() { }
-        virtual Color color() = 0;
+        virtual Material material() = 0;
+
+
 };
 
 #endif

@@ -8,9 +8,22 @@ DirectionalLight::DirectionalLight(Tuple direction, Color color) {
     m_direction = direction;
 }
 
-Color calculateColorFromDirection(DirectionalLight light, Tuple normal, Shape *shape) {
-    Tuple direction = -light.direction();
-    float intensity = fmaxf(dot(direction, normal), 0.0);
+Color calculateColorFromDirection(DirectionalLight &light, Tuple &normal, const Tuple &eye, Shape *shape) {
+    Tuple lightDir = -light.direction();
+    lightDir = lightDir.normalized();
+    
+    Material material = shape->material();
+    Color effectiveColor = light.color() * material.color();
 
-    return light.color() * intensity * shape->color();
+    Color ambient = effectiveColor * material.ambient();
+
+    float diffuseIntensity = fmaxf(dot(lightDir, normal), 0.0);
+    Color diffuse = diffuseIntensity * effectiveColor * material.diffuse();
+
+    Tuple reflectedVector = reflect(-lightDir, normal);
+    float specularIntensity = fmaxf(dot(reflectedVector, eye), 0.0);
+    float factor = powf(specularIntensity, material.shininess());
+    Color specular = factor * effectiveColor * material.specular();
+    
+    return ambient + diffuse + specular;
 }
