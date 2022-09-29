@@ -34,12 +34,12 @@ void handleRays(std::queue<int> *queue, Canvas &canvas, Tuple &start, Color &bac
         float deltaY = 1.0 / size;
 
         for (int y = 0; y < size; y++) {
-            float convertedX = (x * deltaX) * 40.0 - 20.0;
-            float convertedY = (y * deltaY) * 40.0 - 20.0;
+            float convertedX = (x * deltaX) * 20.0 - 10.0;
+            float convertedY = (y * deltaY) * 20.0 - 10.0;
 
             Tuple endPosition = Tuple(convertedX, convertedY, 0);
             Tuple rayDirection = endPosition - start;
-            Ray ray(start, rayDirection);
+            Ray ray(start, rayDirection.normalized());
 
             std::optional<Intersection> finalHit;
 
@@ -75,43 +75,29 @@ void handleRays(std::queue<int> *queue, Canvas &canvas, Tuple &start, Color &bac
 }
 
 int main() {
+    Canvas canvas = Canvas(size, size);
+
     Color background(0.5, 0.5, 0.5);
 
     std::vector<PointLight> pointLights;
-    Color pointColor(0.9, 0.0, 0.9);
-    Color pointColor2(0.0, 0.9, 0.0);
-    Tuple lightPosition(10.0, 10.0, -5.0);
-    Tuple lightPosition2(0.0, 0.0, 2.0);
+    Color pointColor(1.0, 1.0, 1.0);
+    Tuple lightPosition(-20.0, 20.0, -2.0);
     pointLights.push_back(PointLight(pointColor, lightPosition));
-    pointLights.push_back(PointLight(pointColor2, lightPosition2));
 
     std::vector<DirectionalLight> dirLights;
-    Color dirColor(0.0, 0.0, 0.4);
-    Color dirColor2(0.0, 0.4, 0.0);
-    Tuple lightDir(0.0, 0.0, 1.0);
-    Tuple lightDir2(0.0, 1.0, 1.0);
-    dirLights.push_back(DirectionalLight(lightDir.normalized(), dirColor));
-    dirLights.push_back(DirectionalLight(lightDir2.normalized(), dirColor2));
-
-    Canvas canvas = Canvas(size, size);
 
     std::vector<Sphere> shapes;
-    Color sphereColor(1.0, 0.0, 0.0);
-    Color sphereColor2(0.0, 0.0, 0.5);
-    Color sphereColor3(0.0, 0.6, 0.0);
-    Material material1(sphereColor);
-    Material material2(sphereColor2, 0.8, 0.5, 0.8, 10);
-    Material material3(sphereColor3, 0.4, 0.5, 0.5, 1);
+    Color sphereColor(1.0, 0.2, 1.0);
+    Material material1(sphereColor, 0.8, 0.8, 0.7, 1.0);
+    Color sphereColor2(0.2, 1.0, 1.0);
+    Material material2(sphereColor2);
     Tuple center = Tuple(0, 0, 10);
-    Tuple center2 = Tuple(10, 10, 2);
-    Tuple center3 = Tuple (-10, 10, 0);
-    Matrix transform1 = translationMatrix(2.0, 3.0, 1.0);
-    Matrix transform2 = scaleMatrix(1.0, 2.0, 1.0);
-    shapes.push_back(Sphere(center, 60, material1, transform2));
-    shapes.push_back(Sphere(center2, 50, material2));
-    shapes.push_back(Sphere(center3, 10, material3));
+    Tuple center2 = Tuple(10, 10, 10);
 
-    Tuple start = Tuple(0, 0, -30.0);
+    shapes.push_back(Sphere(center, 20, material1));
+    shapes.push_back(Sphere(center2, 10, material2));
+
+    Tuple start = Tuple(0, 0, -10.0);
 
     std::queue<int> rows = std::queue<int>();
     auto processor_count = std::thread::hardware_concurrency() - 3;
