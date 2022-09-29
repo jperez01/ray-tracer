@@ -21,10 +21,10 @@ Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position,
     float diffuseIntensity = fmaxf(dot(lightDir, normal), 0.0);
     Color diffuse = diffuseIntensity * effectiveColor * material.diffuse();
 
-    Tuple reflectedVector = reflect(-lightDir, normal);
+    Tuple reflectedVector = reflect(-lightDir, normal).normalized();
     float specularIntensity = fmaxf(dot(reflectedVector, eye), 0.0);
     float factor = powf(specularIntensity, material.shininess());
-    Color specular = factor * effectiveColor * material.specular();
+    Color specular = factor * light.color() * material.specular();
     
     return ambient + diffuse + specular;
 }
