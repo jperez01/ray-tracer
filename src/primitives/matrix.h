@@ -2,6 +2,7 @@
 #define RTC_MATRIX
 
 #include <vector>
+#include <string>
 
 #include "primitives/tuple.h"
 
@@ -25,10 +26,12 @@ class Matrix {
         Tuple operator*(const Tuple other);
 
         Matrix transpose();
+        bool isInvertible();
         Matrix inverse();
         Matrix subMatrix(int row, int col);
         float determinant();
         float cofactor(int row, int col);
+        std::string debugString();
 
 
     private:
@@ -36,6 +39,8 @@ class Matrix {
         float* data;
         inline int matrixIndex(int row, int col) const;
 };
+
+Tuple operator*(const Matrix &m, const Tuple &t);
 
 Matrix identityMatrix(int dimensions);
 Matrix translationMatrix(float x, float y, float z);
@@ -45,4 +50,5 @@ Matrix rotationX(float radians);
 Matrix rotationY(float radians);
 Matrix rotationZ(float radians);
 Matrix shear(int xy, int xz, int yx, int yz, int zx, int zy);
+Matrix viewTransform(Tuple &from, Tuple &to, Tuple &up);
 #endif

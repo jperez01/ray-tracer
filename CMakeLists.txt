@@ -12,7 +12,6 @@ add_library(
     src/primitives/color.cpp
     src/primitives/math.h
     src/primitives/tuple.cpp
-    src/primitives/intersection.cpp
     src/primitives/intersections.cpp
     src/primitives/ray.cpp
     src/primitives/matrix.cpp
@@ -32,6 +31,7 @@ add_library(
     src/shapes/sphere.cpp
 )
 target_include_directories(shapes PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_link_libraries(shapes primitives)
 
 add_library(
     images
@@ -40,11 +40,27 @@ add_library(
 target_include_directories(images PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_library(
+    scene
+    src/scene/world.cpp
+    src/scene/computations.cpp
+    src/scene/camera.cpp
+)
+target_include_directories(scene PUBLIC ${PROJECT_SOURCE_DIR}/src)
+
+add_library(
     lights
     src/lights/point_light.cpp
     src/lights/direction_light.cpp
 )
 target_include_directories(lights PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-add_executable(imageWriter ./src/main.cpp)
-target_link_libraries(imageWriter GTest::gtest GTest::gtest_main pthread primitives display shapes images lights)
+add_executable(mainWriter ./src/main.cpp)
+target_link_libraries(mainWriter GTest::gtest GTest::gtest_main pthread 
+    primitives display shapes images lights scene)
+
+add_executable(
+    tests
+    src/tests/sceneTest.cpp)
+target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_link_libraries(tests GTest::gtest GTest::gtest_main pthread
+    primitives display shapes images lights scene)

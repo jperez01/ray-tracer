@@ -15,10 +15,12 @@
 class Sphere : public Shape {
     public:
         Sphere(Tuple &center, float radius);
+        Sphere(const Material &material, Matrix &transform);
         Sphere(Tuple &center, float radius, const Material &material);
         Sphere(Tuple &center, float radius, const Material &material, Matrix &transform);
 
         Tuple surfaceNormal(Tuple &position);
+        void findIntersection(Ray &givenRay, Intersections &solutions);
 
         inline Tuple center() { return m_center; }
         inline float radius() { return m_radius; }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <optional>
 
+class Shape;
 #include "shapes/shape.h"
 
 struct Intersection {
@@ -20,8 +21,11 @@ class Intersections {
         Intersections();
         Intersections(std::vector<Intersection> &intersections);
         Intersection hit();
+        std::optional<Intersection> hitOptional();
         int size();
         void add(Intersection &intersection);
+        void sortIntersections();
+        inline std::vector<Intersection> intersectionsList() { return m_intersections; }
         Intersection operator[](int index);
 
     private:
