@@ -17,6 +17,15 @@ Tuple Ray::position(float time) {
     return this->origin() + this->direction() * time;
 }
 
+void Ray::setOrigin(Tuple origin) {
+    m_origin = origin;
+}
+
+void Ray::setDirection(Tuple direction) {
+    m_direction = direction;
+}
+    
+
 std::string Ray::debugString() {
     std::stringstream stream;
 

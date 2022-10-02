@@ -1,6 +1,7 @@
 #include "primitives/math.h"
 #include "tuple.h"
 #include <cmath>
+#include <sstream>
 
 Tuple::Tuple(float v1, float v2, float v3) :
             x(v1), y(v2), z(v3), w(0) {}
@@ -70,6 +71,22 @@ Tuple Tuple::cross(Tuple other) {
     return Vector(this->y * other.z - this->z * other.y,
         this->z * other.x - this->x * other.z,
         this->x * other.y - this->y * other.x);
+}
+
+std::string Tuple::debugString() {
+    std::stringstream stream;
+
+    stream << "Tuple: ";
+    stream << x;
+    stream << " ";
+    stream << y;
+    stream << " ";
+    stream << z;
+    stream << " ";
+    stream << w;
+    stream << "\n";
+
+    return stream.str();
 }
 
 float dot(Tuple lhs, Tuple rhs) {

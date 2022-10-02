@@ -114,7 +114,7 @@ int main() {
     std::vector<Shape *> objects;
 
     Matrix transform = scaleMatrix(10, 0.01, 10);
-    Material material(Color(1, 0.9, 0.9), 1.0, 0, 1.0, 1.0);
+    Material material{};
     Sphere floor(material, transform);
 
     Matrix left_transform = translationMatrix(0, 0, 5.0) 
@@ -130,15 +130,15 @@ int main() {
     Sphere right_wall(material, right_transform);
 
     Matrix middle_transform = translationMatrix(-0.5, 1, 0.5);
-    Material middle_material(Color(0.1, 1, 0.5), 1.0, 0.7, 0.3, 1.0);
+    Material middle_material(Color(0.1, 1, 0.5), 0.1, 0.7, 0.3, 200.0);
     Sphere middle_sphere(middle_material, middle_transform);
 
     Matrix right_sphere_transform = translationMatrix(1.5, 0.5, -0.5) * scaleMatrix(0.5, 0.5, 0.5);
-    Material right_sphere_material(Color(0.5, 1, 0.1), 1.0, 0.7, 0.3, 1.0);
+    Material right_sphere_material(Color(0.5, 1, 0.1), 0.1, 0.7, 0.3, 200.0);
     Sphere right_sphere(right_sphere_material, right_sphere_transform);
 
     Matrix left_sphere_transform = translationMatrix(-1.5, 0.33, -0.75) * scaleMatrix(0.33, 0.33, 0.33);
-    Material left_sphere_material(Color(1, 0.8, 0.1), 1.0, 0.7, 0.3, 1.0);
+    Material left_sphere_material(Color(1, 0.8, 0.1), 0.1, 0.7, 0.3, 200.0);
     Sphere left_sphere(left_sphere_material, left_sphere_transform);
 
     Tuple sphereCenter(0, 4, 1);

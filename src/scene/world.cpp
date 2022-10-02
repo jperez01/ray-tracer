@@ -25,6 +25,10 @@ World::World(std::vector<Shape *> &objects, std::vector<PointLight> &pointLights
 World::World(std::vector<Shape *> &objects, std::vector<DirectionalLight> &directLights, std::vector<PointLight> &pointLights) :
     m_objects(objects), m_directLights(directLights), m_pointLights(pointLights) {}
 
+void World::setPointLights(std::vector<PointLight> newLights) {
+    m_pointLights = newLights;
+}
+
 Intersections World::intersect(Ray &ray) {
     Intersections results{};
     for (Shape* &object : m_objects) {
@@ -77,28 +81,4 @@ Color World::colorAt(Ray &ray, Color &backgroundColor) {
         return shadeHit(computations);
     } else return backgroundColor;
     
-}
-
-World default_world() {
-    Tuple origin = Point(-10, 10, -10);
-    Color color(1, 1, 1);
-    PointLight light(color, origin);
-
-    Material material(Color(0.8, 1.0, 0.6), 1.0, 0.2, 0.7, 1.0);
-    Sphere s1(material);
-
-    origin = Point(0, 0, 0);
-    Material material2(Color(1.0, 1.0, 1.0), 1.0, 1.0, 1.0, 1.0);
-    Sphere s2(origin, 0.5, material2);
-
-    std::vector<Shape *> shapes;
-    shapes.push_back(&s1);
-    shapes.push_back(&s2);
-
-    std::vector<PointLight> pointLights;
-    pointLights.push_back(light);
-
-    World world(shapes, pointLights);
-
-    return world;
 }

@@ -28,6 +28,8 @@ class World {
         inline std::vector<PointLight> pointLights() { return m_pointLights; }
         inline std::vector<DirectionalLight> directionalLights() { return m_directLights; }
 
+        void setPointLights(std::vector<PointLight> newLights);
+
     private:
         std::vector<Shape *> m_objects;
         std::vector<PointLight> m_pointLights;

@@ -16,6 +16,8 @@ class Ray {
 
         inline Tuple origin() { return m_origin; }
         inline Tuple direction() { return m_direction; }
+        void setOrigin(Tuple origin);
+        void setDirection(Tuple direction);
     
     private:
         Tuple m_origin;

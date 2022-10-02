@@ -75,8 +75,8 @@ void Sphere::findIntersection(Ray &givenRay, Intersections &solutions) {
     float two_a = 2 * a;
     float sqrt_dis = sqrt(discriminant);
 
-    Intersection inter1{(-b + sqrt_dis) / two_a, this, ray};
-    Intersection inter2{(-b - sqrt_dis) / two_a, this, ray};
+    Intersection inter1{(-b + sqrt_dis) / two_a, this};
+    Intersection inter2{(-b - sqrt_dis) / two_a, this};
 
     if (inter1.m_time > inter2.m_time) {
         solutions.add(inter2);

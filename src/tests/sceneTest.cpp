@@ -6,6 +6,28 @@
 #include "scene/camera.h"
 #include "shapes/sphere.h"
 
+World default_world() {
+    Tuple origin = Point(-10, 10, -10);
+    Color color(1, 1, 1);
+    PointLight light(color, origin);
+
+    Material material(Color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 1.0);
+    Sphere s1 = Sphere(material);
+
+    origin = Point(0, 0, 0);
+    Material material2{};
+    Sphere s2 = Sphere(origin, 0.5, material2);
+
+    std::vector<Shape *> shapes;
+    shapes.push_back(&s1);
+    shapes.push_back(&s2);
+
+    std::vector<PointLight> pointLights;
+    pointLights.push_back(light);
+
+    return World(shapes, pointLights);
+}
+
 TEST(SceneTest, creation) {
     World world{};
     EXPECT_EQ(world.objects().size(), 0);
@@ -31,13 +53,13 @@ TEST(SceneTest, intersectDefault) {
     Color color(1, 1, 1);
     PointLight light(color, origin);
 
-    Material material(Color(0.8, 1.0, 0.6), 1.0, 0.2, 0.7, 1.0);
-    Sphere s1(material);
+    Material material(Color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
+    Sphere s1 = Sphere(material);
 
     origin = Point(0, 0, 0);
-    Material material2(Color(1.0, 1.0, 1.0), 1.0, 1.0, 1.0, 1.0);
+    Material material2{};
     Matrix transform = scaleMatrix(0.5, 0.5, 0.5);
-    Sphere s2(origin, 1.0, material2, transform);
+    Sphere s2 = Sphere(origin, 1.0, material2, transform);
 
     std::vector<Shape *> shapes;
     shapes.push_back(&s1);
@@ -60,6 +82,72 @@ TEST(SceneTest, intersectDefault) {
     }
 }
 
+TEST(SceneTest, simpleComputation) {
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere shape{};
+    Intersection i(4, &shape, ray);
+    Computations computations(i, ray);
+
+    EXPECT_FLOAT_EQ(computations.time(), i.m_time);
+    EXPECT_TRUE(computations.eye() == Vector(0, 0, -1));
+    EXPECT_TRUE(computations.point() == Point(0, 0, -1));
+    EXPECT_TRUE(computations.normal() == Vector(0, 0, -1));
+
+    ray = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    i = Intersection(1, &shape, ray);
+    computations = Computations(i, ray);
+
+    EXPECT_FLOAT_EQ(computations.time(), i.m_time);
+    EXPECT_TRUE(computations.eye() == Vector(0, 0, -1));
+    EXPECT_TRUE(computations.point() == Point(0, 0, 1));
+    EXPECT_TRUE(computations.normal() == Vector(0, 0, -1));
+    EXPECT_TRUE(computations.isInside());
+}
+
+TEST(SceneTest, simpleShading) {
+    Tuple origin = Point(-10, 10, -10);
+    Color color(1, 1, 1);
+    PointLight light(color, origin);
+
+    Material material(Color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
+    Sphere s1 = Sphere(material);
+
+    origin = Point(0, 0, 0);
+    Material material2{};
+    Matrix transform = scaleMatrix(0.5, 0.5, 0.5);
+    Sphere s2 = Sphere(origin, 1.0, material2, transform);
+
+    std::vector<Shape *> shapes;
+    shapes.push_back(&s1);
+    shapes.push_back(&s2);
+
+    std::vector<PointLight> pointLights;
+    pointLights.push_back(light);
+
+    World defaultWorld(shapes, pointLights);
+
+    Ray ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Intersection i(4, &s1, ray);
+    Computations computations(i, ray);
+
+    Color result = defaultWorld.shadeHit(computations);
+    EXPECT_TRUE(result == Color(0.38066, 0.47583, 0.2855));
+
+    std::vector<PointLight> newPointLights;
+    PointLight newLight(Color(1, 1, 1), Point(0, 0.25, 0));
+    newPointLights.push_back(newLight);
+    defaultWorld.setPointLights(newPointLights);
+
+    ray = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    Intersections results{};
+    s2.findIntersection(ray, results);
+    i = results.hit();
+    i = Intersection(0.5, &s2);
+    computations = Computations(i, ray);
+
+    result = defaultWorld.shadeHit(computations);
+    EXPECT_TRUE(result == Color(0.90498, 0.90498, 0.90498));
+}
 
 TEST(SceneTest, simpleViewTransform) {
     Tuple from = Point(1, 3, 2);
@@ -169,13 +257,13 @@ TEST(SceneTest, renderWithCamera) {
     Color color(1, 1, 1);
     PointLight light(color, origin);
 
-    Material material(Color(0.8, 1.0, 0.6), 1.0, 0.2, 0.7, 1.0);
-    Sphere s1(material);
+    Material material(Color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
+    Sphere s1 = Sphere(material);
 
     origin = Point(0, 0, 0);
-    Material material2(Color(1.0, 1.0, 1.0), 1.0, 1.0, 1.0, 1.0);
-    Matrix sphereTransform = scaleMatrix(0.5, 0.5, 0.5);
-    Sphere s2(origin, 1.0, material2, sphereTransform);
+    Material material2{};
+    Matrix transform = scaleMatrix(0.5, 0.5, 0.5);
+    Sphere s2 = Sphere(origin, 1.0, material2, transform);
 
     std::vector<Shape *> shapes;
     shapes.push_back(&s1);
@@ -189,12 +277,14 @@ TEST(SceneTest, renderWithCamera) {
     Tuple from = Point(0, 0, -5);
     Tuple to = Point(0, 0, 0);
     Tuple up = Vector(0, 1, 0);
-    Matrix transform = viewTransform(from, to, up);
+    transform = viewTransform(from, to, up);
     Camera camera(11, 11, M_PI / 2, transform);
 
     Ray ray = camera.calculateRayForPixel(5, 5);
     Color defaultColor(0.0, 0.0, 0.0);
     Color result = defaultWorld.colorAt(ray, defaultColor);
+    std::string info = result.debugString();
+    printf("%s \n", info.c_str());
 
     EXPECT_FLOAT_EQ(result.r(), 0.38066);
     EXPECT_FLOAT_EQ(result.g(), 0.47583);
