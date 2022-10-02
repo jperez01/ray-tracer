@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <vector>
+#include <sstream>
 #include <math.h>
 
 Matrix::Matrix(int h, int w) {
@@ -102,6 +103,15 @@ Tuple Matrix::operator*(const Tuple other) {
   );
 }
 
+Tuple operator*(const Matrix &m, const Tuple &t) {
+    return Tuple(
+        m(0, 0) * t.x + m(0, 1) * t.y + m(0, 2) * t.z + m(0, 3) * t.w,
+        m(1, 0) * t.x + m(1, 1) * t.y + m(1, 2) * t.z + m(1, 3) * t.w,
+        m(2, 0) * t.x + m(2, 1) * t.y + m(2, 2) * t.z + m(2, 3) * t.w,
+        m(3, 0) * t.x + m(3, 1) * t.y + m(3, 2) * t.z + m(3, 3) * t.w
+  );
+}
+
 Matrix Matrix::transpose() {
     Matrix transpose = Matrix(this->height(), this->width());
     for (int row = 0; row < this->height(); row++) {
@@ -150,8 +160,12 @@ float Matrix::determinant() {
 float Matrix::cofactor(int row, int col) {
     float minor = this->subMatrix(row, col).determinant();
 
-    if ((row + col) % 2 == 0) return minor;
-    else return minor * -1;
+    if ((row + col) % 2 == 1) return -1 * minor;
+    else return minor;
+}
+
+bool Matrix::isInvertible() {
+    return this->determinant() != 0;
 }
 
 Matrix Matrix::inverse() {
@@ -161,11 +175,24 @@ Matrix Matrix::inverse() {
     for (int row = 0; row < this->height(); row++) {
         for (int col = 0; col < this->width(); col++) {
             float cofactor = this->cofactor(row, col);
-            inverse.set(cofactor / determinant, row, col);
+            inverse.set(cofactor / determinant, col, row);
         }
     }
 
     return inverse;
+}
+
+std::string Matrix::debugString() {
+    std::stringstream stream;
+    for (int y = 0; y < height_; y++) {
+        for (int x = 0; x < width_; x++) {
+            stream << operator()(y, x);
+            if (x == width_ - 1) stream << "\n";
+            else stream << " ";
+        }
+    }
+
+    return stream.str();
 }
 
 Matrix identityMatrix(int dimensions) {
@@ -249,4 +276,26 @@ Matrix shear(int xy, int xz, int yx, int yz, int zx, int zy) {
     shear.set(zy, 2, 1);
 
     return shear;
+}
+
+Matrix viewTransform(Tuple &from, Tuple &to, Tuple &up) {
+    Tuple forward = (to - from).normalized();
+    Tuple upn = up.normalized();
+    Tuple left = cross(forward, upn);
+    Tuple true_up = cross(left, forward);
+
+    Matrix orientation = identityMatrix(4);
+    orientation.set(left.x, 0, 0);
+    orientation.set(left.y, 0, 1);
+    orientation.set(left.z, 0, 2);
+
+    orientation.set(true_up.x, 1, 0);
+    orientation.set(true_up.y, 1, 1);
+    orientation.set(true_up.z, 1, 2);
+
+    orientation.set(-forward.x, 2, 0);
+    orientation.set(-forward.y, 2, 1);
+    orientation.set(-forward.z, 2, 2);
+
+    return orientation * translationMatrix(-from.x, -from.y, -from.z);
 }

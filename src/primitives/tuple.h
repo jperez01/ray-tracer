@@ -1,6 +1,8 @@
 #ifndef RTC_TUPLE
 #define RTC_TUPLE
 
+#include <string>
+
 class Tuple {
     public:
         float x;
@@ -32,6 +34,8 @@ class Tuple {
 
         float magnitude();
         Tuple normalized();
+
+        std::string debugString();
 };
 
 Tuple Point(float x, float y, float z);

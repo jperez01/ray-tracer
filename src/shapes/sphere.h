@@ -14,16 +14,23 @@
 
 class Sphere : public Shape {
     public:
+        Sphere();
         Sphere(Tuple &center, float radius);
+        Sphere(const Material &material);
+        Sphere(const Material &material, Matrix &transform);
         Sphere(Tuple &center, float radius, const Material &material);
         Sphere(Tuple &center, float radius, const Material &material, Matrix &transform);
 
         Tuple surfaceNormal(Tuple &position);
+        void findIntersection(Ray &givenRay, Intersections &solutions);
 
         inline Tuple center() { return m_center; }
         inline float radius() { return m_radius; }
         inline Material material() { return m_material; }
         inline std::optional<Matrix> transform() { return m_transform; }
+
+        void setTransform(Matrix &matrix);
+        void setMaterial(Material &material);
 
     private:
         Tuple m_center;

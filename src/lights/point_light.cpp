@@ -9,11 +9,10 @@ PointLight::PointLight(Color color, Tuple position) {
     m_color = color;
 }
 
-Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Shape *shape) {
+Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Material& material) {
     Tuple lightDir = light.position() - position;
     lightDir = lightDir.normalized();
 
-    Material material = shape->material();
     Color effectiveColor = light.color() * material.color();
 
     Color ambient = effectiveColor * material.ambient();

@@ -15,6 +15,14 @@ class Material {
         inline float shininess() { return m_shininess; }
         inline Color color() { return m_color; }
 
+        void setAmbient(float ambient);
+        void setSpecular(float specular);
+        void setDiffuse(float diffuse);
+        void setShininess(float shininess);
+        void setColor(Color &color);
+
+        bool operator==(Material &material);
+
     private:
         float m_ambient;
         float m_specular;
