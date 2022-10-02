@@ -40,6 +40,10 @@ void Camera::calculatePixelSize() {
     m_pixel_size = m_half_width * 2 / m_hsize;
 }
 
+void Camera::setTransform(Matrix &transform) {
+    m_transform = transform;
+}
+
 Ray Camera::calculateRayForPixel(float x, float y) {
     float xoffset = (x + 0.5) * m_pixel_size;
     float yoffset = (y + 0.5) * m_pixel_size;
@@ -48,7 +52,7 @@ Ray Camera::calculateRayForPixel(float x, float y) {
     float world_y = m_half_height - yoffset;
 
     Matrix inverseTransform = m_transform.inverse();
-    Tuple pixel = inverseTransform * Point(world_x, world_y, -1);
+    Tuple pixel = inverseTransform * Point(world_x, world_y, -1.0);
     Tuple origin = inverseTransform * Point(0, 0, 0);
     Tuple direction = (pixel - origin).normalized();
 

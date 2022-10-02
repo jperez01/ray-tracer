@@ -12,6 +12,10 @@ class Camera {
 
         inline float hsize() { return m_hsize; }
         inline float vsize() { return m_vsize; }
+        inline float pixelSize() { return m_pixel_size; }
+        inline Matrix transform() { return m_transform; }
+
+        void setTransform(Matrix &transform);
 
         void calculatePixelSize();
         Ray calculateRayForPixel(float x, float y);

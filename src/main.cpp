@@ -84,11 +84,12 @@ void handleRays(std::queue<int> *queue, Canvas &canvas, Tuple &start, Color &bac
                 Tuple finalPosition = ray.position(finalHit.value().m_time);
                 Tuple viewDir = -ray.direction();
                 auto *shape = (Sphere*) finalHit.value().m_shape;
+                Material material = shape->material();
                 Tuple normal = shape->surfaceNormal(finalPosition);
                 Color finalColor(0.0, 0.0, 0.0);
 
                 for (PointLight &light : pointLights) {
-                    finalColor = finalColor + calculateColorFromPoint(light, normal, finalPosition, viewDir, shape);
+                    finalColor = finalColor + calculateColorFromPoint(light, normal, finalPosition, viewDir, material);
                 }
                 for (DirectionalLight &light : dirLights) {
                     finalColor = finalColor + calculateColorFromDirection(light, normal, viewDir, shape);
@@ -139,6 +140,9 @@ int main() {
     Matrix left_sphere_transform = translationMatrix(-1.5, 0.33, -0.75) * scaleMatrix(0.33, 0.33, 0.33);
     Material left_sphere_material(Color(1, 0.8, 0.1), 1.0, 0.7, 0.3, 1.0);
     Sphere left_sphere(left_sphere_material, left_sphere_transform);
+
+    Tuple sphereCenter(0, 4, 1);
+    Sphere normal_sphere(sphereCenter, 2.0, left_sphere_material);
 
     objects.push_back(&floor);
     objects.push_back(&left_wall);

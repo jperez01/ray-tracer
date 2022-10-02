@@ -10,10 +10,12 @@ class Shape;
 struct Intersection {
     float m_time;
     Shape *m_shape;
+    Ray m_ray;
 
     Intersection() : m_time(-1.0), m_shape(nullptr) {}
-    Intersection(float time) : m_time(time), m_shape(nullptr) {}
+    Intersection(float time) : m_time(time), m_shape(nullptr)  {}
     Intersection(float time, Shape *shape) : m_time(time), m_shape(shape) {}
+    Intersection(float time, Shape *shape, Ray ray) : m_time(time), m_shape(shape), m_ray(ray) {}
 };
 
 class Intersections {

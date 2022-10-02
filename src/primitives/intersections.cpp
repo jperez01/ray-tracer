@@ -26,7 +26,7 @@ void Intersections::add(Intersection &intersection) {
 void Intersections::sortIntersections() {
     std::sort(m_intersections.begin(), m_intersections.end(),
     [](const Intersection &lhs, const Intersection &rhs) {
-        return lhs.m_time - rhs.m_time;
+        return rhs.m_time > lhs.m_time;
     });
 }
 
@@ -51,7 +51,6 @@ Intersection Intersections::hit() {
     Intersection hit;
     for (Intersection &intersection : m_intersections) {
         if (intersection.m_time < 0) continue;
-        if (epsilon_eq(intersection.m_time, 0.000)) continue;
 
         if (hit.m_time < 0 || intersection.m_time < hit.m_time) {
             hit = intersection;

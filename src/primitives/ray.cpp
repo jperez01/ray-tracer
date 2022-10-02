@@ -44,5 +44,5 @@ std::string Ray::debugString() {
 }
 
 Ray transformRay(Ray &ray, Matrix &matrix) {
-    return Ray(matrix * ray.origin(), (matrix * ray.direction()).normalized());
+    return Ray(matrix * ray.origin(), (matrix * ray.direction()));
 }

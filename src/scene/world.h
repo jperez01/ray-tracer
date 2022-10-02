@@ -14,6 +14,7 @@ class World {
     public:
         World();
         World(std::vector<Shape *> &objects);
+        World(std::vector<Shape *> &objects, std::vector<PointLight> &pointLights);
         World(std::vector<Shape *> &objects, 
             std::vector<DirectionalLight> &directLights,
             std::vector<PointLight> &pointLights);
@@ -32,5 +33,7 @@ class World {
         std::vector<PointLight> m_pointLights;
         std::vector<DirectionalLight> m_directLights;
 };
+
+World default_world();
 
 #endif

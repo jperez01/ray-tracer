@@ -60,7 +60,8 @@ target_link_libraries(mainWriter GTest::gtest GTest::gtest_main pthread
 
 add_executable(
     tests
-    src/tests/sceneTest.cpp)
+    src/tests/sceneTest.cpp
+    src/tests/lightingTest.cpp)
 target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(tests GTest::gtest GTest::gtest_main pthread
     primitives display shapes images lights scene)
