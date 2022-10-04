@@ -283,8 +283,6 @@ TEST(SceneTest, renderWithCamera) {
     Ray ray = camera.calculateRayForPixel(5, 5);
     Color defaultColor(0.0, 0.0, 0.0);
     Color result = defaultWorld.colorAt(ray, defaultColor);
-    std::string info = result.debugString();
-    printf("%s \n", info.c_str());
 
     EXPECT_FLOAT_EQ(result.r(), 0.38066);
     EXPECT_FLOAT_EQ(result.g(), 0.47583);

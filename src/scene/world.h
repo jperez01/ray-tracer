@@ -23,6 +23,7 @@ class World {
         std::optional<Intersection> intersectSimple(Ray &ray);
         Color shadeHit(Computations &computations);
         Color colorAt(Ray &ray, Color &backgroundColor);
+        bool isShadowed(Tuple &point, PointLight &light);
 
         inline std::vector<Shape *> objects() { return m_objects; }
         inline std::vector<PointLight> pointLights() { return m_pointLights; }

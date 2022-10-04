@@ -63,9 +63,11 @@ Color World::shadeHit(Computations &computations) {
     Material material = shape->material();
     Tuple viewDir = computations.eye();
     Tuple finalPosition = computations.point();
+    Tuple overPoint = computations.overPoint();
 
     for (PointLight &light : m_pointLights) {
-        finalColor = finalColor + calculateColorFromPoint(light, normal, finalPosition, viewDir, material);
+        bool inShadow = isShadowed(overPoint, light);
+        finalColor = finalColor + calculateColorFromPoint(light, normal, overPoint, viewDir, material, inShadow);
     }
     for (DirectionalLight &light : m_directLights) {
         finalColor = finalColor + calculateColorFromDirection(light, normal, viewDir, shape);
@@ -81,4 +83,15 @@ Color World::colorAt(Ray &ray, Color &backgroundColor) {
         return shadeHit(computations);
     } else return backgroundColor;
     
+}
+
+bool World::isShadowed(Tuple &point, PointLight &light) {
+    Tuple direction = light.position() - point;
+    float distance = direction.magnitude();
+    direction = direction.normalized();
+
+    Ray ray(point, direction);
+    std::optional<Intersection> finalHit = intersectSimple(ray);
+
+    return finalHit.has_value() && finalHit.value().m_time < distance;
 }
