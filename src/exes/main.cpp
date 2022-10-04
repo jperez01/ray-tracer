@@ -3,7 +3,6 @@
 #include "images/pmm_writer.h"
 #include "primitives/ray.h"
 #include "shapes/sphere.h"
-#include "shapes/plane.h"
 #include "primitives/color.h"
 #include "lights/point_light.h"
 #include "lights/direction_light.h"
@@ -114,15 +113,21 @@ int main() {
 
     std::vector<Shape *> objects;
 
-    Tuple point = Point(0, -10, 10);
-    Tuple normal = Vector(0, 1, 0);
-    Material material(Color(0.4, 1.0, 1.0), 0.2, 0.4, 0.5, 200.0);
-    Plane floor(point, normal, material);
+    Matrix transform = scaleMatrix(10, 0.01, 10);
+    Material material{};
+    Sphere floor(material, transform);
 
-    Tuple second_point = Point(0, 100, 10);
-    normal = Vector(1, 0, -1);
-    material = Material(Color(1.0, 0.1, 0.1), 0.3, 0.4, 0.5, 100.0);
-    Plane wall(second_point, normal, material);
+    Matrix left_transform = translationMatrix(0, 0, 5.0) 
+    * rotationY(-M_PI / 4) 
+    * rotationX(M_PI / 2) 
+    * transform;
+    Sphere left_wall(material, left_transform);
+
+    Matrix right_transform = translationMatrix(0, 0, 5.0) 
+    * rotationY(M_PI / 4) 
+    * rotationX(M_PI / 2) 
+    * transform;
+    Sphere right_wall(material, right_transform);
 
     Matrix middle_transform = translationMatrix(-0.5, 1, 0.5);
     Material middle_material(Color(0.1, 1, 0.5), 0.1, 0.7, 0.3, 200.0);
@@ -137,7 +142,8 @@ int main() {
     Sphere left_sphere(left_sphere_material, left_sphere_transform);
 
     objects.push_back(&floor);
-    objects.push_back(&wall);
+    objects.push_back(&left_wall);
+    objects.push_back(&right_wall);
     objects.push_back(&middle_sphere);
     objects.push_back(&left_sphere);
     objects.push_back(&right_sphere);

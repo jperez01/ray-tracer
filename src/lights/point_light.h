@@ -18,5 +18,6 @@ class PointLight {
 };
 
 Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Material &material);
+Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Material &material, bool inShadow);
 
 #endif
