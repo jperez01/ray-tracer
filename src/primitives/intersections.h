@@ -16,6 +16,10 @@ struct Intersection {
     Intersection(float time) : m_time(time), m_shape(nullptr)  {}
     Intersection(float time, Shape *shape) : m_time(time), m_shape(shape) {}
     Intersection(float time, Shape *shape, Ray ray) : m_time(time), m_shape(shape), m_ray(ray) {}
+
+    bool operator==(Intersection other) {
+        return other.m_time == this->m_time && other.m_shape == this->m_shape;
+    }
 };
 
 class Intersections {

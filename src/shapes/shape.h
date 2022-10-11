@@ -15,7 +15,9 @@ class Shape {
         virtual void findIntersection(Ray &ray, Intersections &solutions) = 0;
         virtual ~Shape() { }
         virtual Material material() = 0;
+        virtual void setMaterial(Material &material) = 0;
         virtual std::optional<Matrix> transform() = 0;
+        virtual void setTransform(Matrix &transform) = 0;
 };
 
 #endif

@@ -18,7 +18,7 @@ Plane::Plane(Tuple &point, Tuple &normal, Material &material) {
     m_point = point;
     m_normal = normal;
     m_transform = std::optional<Matrix>{};
-    m_material = Material{};
+    m_material = material;
 }
 
 Plane::Plane(Tuple &point, Tuple &normal, Matrix &transform, Material &material) {

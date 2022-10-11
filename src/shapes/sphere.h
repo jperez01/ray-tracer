@@ -41,4 +41,5 @@ class Sphere : public Shape {
 
 void findIntersection(Sphere &sphere, Ray &givenRay, Intersections &solutions);
 
+Shape* GlassySphere();
 #endif

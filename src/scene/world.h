@@ -21,8 +21,11 @@ class World {
         
         Intersections intersect(Ray &ray);
         std::optional<Intersection> intersectSimple(Ray &ray);
-        Color shadeHit(Computations &computations);
-        Color colorAt(Ray &ray, Color &backgroundColor);
+        Color shadeHit(Computations &computations, int remaining = 0);
+        Color colorAt(Ray &ray, Color &backgroundColor, int remaining = 0);
+        Color findReflection(Computations &info, int remaining = 0);
+        Color findRefraction(Computations &info, int remaining = 0);
+        float findReflectance(Computations &info);
         bool isShadowed(Tuple &point, PointLight &light);
 
         inline std::vector<Shape *> objects() { return m_objects; }
