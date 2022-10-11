@@ -48,6 +48,15 @@ Sphere::Sphere(Tuple &center, float radius, const Material &material, Matrix &tr
     m_transform = std::optional<Matrix>(transform);
 }
 
+Shape* GlassySphere() {
+    auto sphere = new Sphere();
+    auto glass = Material{};
+    glass.setTransparency(1.0);
+    glass.setRefractiveIndex(GLASS);
+    sphere->setMaterial(glass);
+    return sphere;
+}
+
 void Sphere::setTransform(Matrix &matrix) {
     m_transform = std::optional<Matrix>{matrix};
 }
@@ -131,3 +140,4 @@ Tuple Sphere::surfaceNormal(Tuple &position) {
         return world_normal.normalized();
     } else return (position - m_center).normalized();
 }
+

@@ -4,15 +4,11 @@
 #include "primitives/ray.h"
 #include "shapes/sphere.h"
 #include "shapes/plane.h"
-#include "shapes/cube.h"
 #include "primitives/color.h"
 #include "lights/point_light.h"
 #include "lights/direction_light.h"
 #include "scene/camera.h"
 #include "scene/world.h"
-#include "patterns/striped_pattern.h"
-#include "patterns/gradient_pattern.h"
-#include "patterns/ring_pattern.h"
 
 #include <string>
 #include <vector>
@@ -41,7 +37,7 @@ void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &cam
 
         for (int y = 0; y < camera.vsize(); y++) {
             Ray ray = camera.calculateRayForPixel(x, y);
-            Color result = world.colorAt(ray, background, 5);
+            Color result = world.colorAt(ray, background);
 
             canvas.writePixel(x, y, result);
         }
@@ -116,59 +112,35 @@ int main() {
     Matrix matrix = viewTransform(from, to, up);
     Camera camera(500.0, 500.0, M_PI/3, matrix);
 
-    Color a(1.0, 1.0, 1.0);
-    Color b(1.0, 0.2, 0.1);
-    Matrix patternTransform = scaleMatrix(0.15, 1.0, 1.0);
-    StripedPattern pattern(a, b, patternTransform);
-
-    Color cr(1.0, 0.0, 0.0);
-    Color cb(0.0, 0.0, 1.0);
-    Matrix gradientTransform = scaleMatrix(1.0, 1.0, 1.0);
-    GradientPattern gradient(cr, cb, gradientTransform);
-
-    Color a2(0.0, 1.0, 0.0);
-    Color b2(0.3, 0.0, 1.0);
-    Matrix ringTransform = scaleMatrix(2.3, 1.0, 5.5);
-    RingPattern ring(a2, b2, ringTransform);
-
     std::vector<Shape *> objects;
 
-    Tuple point = Point(0, -5, 10);
+    Tuple point = Point(0, -10, 10);
     Tuple normal = Vector(0, 1, 0);
-    Material material(Color(1.0, 0.8, 0.7), 0.4, 0.7, 0.3, 200.0, 0.5);
+    Material material(Color(0.4, 1.0, 1.0), 0.2, 0.4, 0.5, 200.0);
     Plane floor(point, normal, material);
 
+    Tuple second_point = Point(0, 100, 10);
+    normal = Vector(1, 0, -1);
+    material = Material(Color(1.0, 0.1, 0.1), 0.3, 0.4, 0.5, 100.0);
+    Plane wall(second_point, normal, material);
+
     Matrix middle_transform = translationMatrix(-0.5, 1, 0.5);
-    Material middle_material(Color(0.1, 1, 0.5), 0.1, 0.7, 0.3, 200.0, 0.5);
-    middle_material.setReflective(0.4);
-    middle_material.setTransparency(0.4);
-    middle_material.setRefractiveIndex(DIAMOND);
-    middle_material.setPattern(&pattern);
+    Material middle_material(Color(0.1, 1, 0.5), 0.1, 0.7, 0.3, 200.0);
     Sphere middle_sphere(middle_material, middle_transform);
 
     Matrix right_sphere_transform = translationMatrix(1.5, 0.5, -0.5) * scaleMatrix(0.5, 0.5, 0.5);
-    Material right_sphere_material(Color(0.5, 1, 0.1), 0.1, 0.7, 0.3, 200.0, 0.5);
-    right_sphere_material.setPattern(&gradient);
+    Material right_sphere_material(Color(0.5, 1, 0.1), 0.1, 0.7, 0.3, 200.0);
     Sphere right_sphere(right_sphere_material, right_sphere_transform);
 
     Matrix left_sphere_transform = translationMatrix(-1.5, 0.33, -0.75) * scaleMatrix(0.33, 0.33, 0.33);
-    Material left_sphere_material(Color(1, 0.8, 0.1), 0.1, 0.7, 0.3, 2.0, 0.5);
+    Material left_sphere_material(Color(1, 0.8, 0.1), 0.1, 0.7, 0.3, 2.0);
     Sphere left_sphere(left_sphere_material, left_sphere_transform);
 
-    Matrix glassy_transform = translationMatrix(-2, 2, 5);
-    Shape* glassy_thing = GlassySphere();
-    glassy_thing->setTransform(glassy_transform);
-
-    Material cube_material(Color(0.0, 0.8, 0.7), 0.1, 0.7, 0.3, 200.0, 0.5);
-    Matrix cube_transform = scaleMatrix(10, 10, 10);
-    Cube c(cube_transform, cube_material);
-
     objects.push_back(&floor);
+    objects.push_back(&wall);
     objects.push_back(&middle_sphere);
     objects.push_back(&left_sphere);
     objects.push_back(&right_sphere);
-    objects.push_back(glassy_thing);
-    objects.push_back(&c);
 
     std::vector<PointLight> pointLights;
     Color pointColor(1.0, 1.0, 1.0);

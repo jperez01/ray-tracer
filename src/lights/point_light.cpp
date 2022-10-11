@@ -48,3 +48,29 @@ Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position,
     
     return ambient + diffuse + specular;
 }
+
+Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Shape &shape, bool inShadow) {
+    Material material = shape.material();
+    Tuple lightDir = light.position() - position;
+    lightDir = lightDir.normalized();
+
+    Color materialColor;
+    if (material.pattern() == nullptr) materialColor = material.color();
+    else materialColor = material.pattern()->getColorAt(position, shape);
+
+    Color effectiveColor = light.color() * materialColor;
+
+    Color ambient = effectiveColor * material.ambient();
+
+    if (inShadow) return ambient;
+
+    float diffuseIntensity = fmaxf(dot(lightDir, normal), 0.0);
+    Color diffuse = diffuseIntensity * effectiveColor * material.diffuse();
+
+    Tuple reflectedVector = reflect(-lightDir, normal).normalized();
+    float specularIntensity = fmaxf(dot(reflectedVector, eye), 0.0);
+    float factor = powf(specularIntensity, material.shininess());
+    Color specular = factor * light.color() * material.specular();
+    
+    return ambient + diffuse + specular;
+}
