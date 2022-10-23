@@ -5,6 +5,7 @@
 #include "shapes/sphere.h"
 #include "shapes/plane.h"
 #include "shapes/cube.h"
+#include "shapes/cylinder.h"
 #include "primitives/color.h"
 #include "lights/point_light.h"
 #include "lights/direction_light.h"
@@ -159,9 +160,9 @@ int main() {
     Shape* glassy_thing = GlassySphere();
     glassy_thing->setTransform(glassy_transform);
 
-    Material cube_material(Color(0.0, 0.8, 0.7), 0.1, 0.7, 0.3, 200.0, 0.5);
-    Matrix cube_transform = scaleMatrix(10, 10, 10);
-    Cube c(cube_transform, cube_material);
+    Material cube_material(Color(0.4, 0.8, 0.1), 0.2, 0.7, 0.3, 200.0, 0.5);
+    Matrix cube_transform = translationMatrix(2, 2, 15) * scaleMatrix(3, 3, 1);
+    Cylinder c(0.0, 10.0, cube_transform, cube_material);
 
     objects.push_back(&floor);
     objects.push_back(&middle_sphere);

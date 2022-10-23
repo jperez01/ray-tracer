@@ -1,4 +1,5 @@
 #include "shapes/plane.h"
+#include "primitives/math.h"
 
 Plane::Plane() {
     m_transform = std::optional<Matrix>{};
@@ -57,4 +58,9 @@ void Plane::findIntersection(Ray &givenRay, Intersections &results) {
             results.add(i);
         }
     }
+}
+
+Bounds Plane::unitBounds() {
+    return Bounds(Point(-GROUP_INFINITE_BIGNUM, -0.1, -GROUP_INFINITE_BIGNUM),
+        Point(-GROUP_INFINITE_BIGNUM, 0.1, -GROUP_INFINITE_BIGNUM));
 }
