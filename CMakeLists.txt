@@ -27,10 +27,13 @@ target_include_directories(display PUBLIC ${PROJECT_SOURCE_DIR}/src)
 add_library(
     shapes
     src/shapes/material.cpp
-    src/shapes/shape.h
+    src/shapes/shape.cpp
     src/shapes/sphere.cpp
     src/shapes/plane.cpp
     src/shapes/cube.cpp
+    src/shapes/cylinder.cpp
+    src/shapes/group.cpp
+    src/shapes/bounds.cpp
 )
 target_include_directories(shapes PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(shapes primitives)
@@ -76,7 +79,8 @@ add_executable(
     src/tests/shadowTest.cpp
     src/tests/patternTest.cpp
     src/tests/reflectTest.cpp
-    src/tests/cubeTest.cpp)
+    src/tests/cubeTest.cpp
+    src/tests/cylinderTest.cpp)
 target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(tests GTest::gtest GTest::gtest_main pthread
     primitives display shapes images lights scene patterns)

@@ -13,6 +13,7 @@ class Plane : public Shape {
 
         Tuple surfaceNormal(Tuple &position);
         void findIntersection(Ray &givenRay, Intersections &results);
+        Bounds unitBounds();
 
         void setTransform(Matrix &matrix);
         void setMaterial(Material &material);
