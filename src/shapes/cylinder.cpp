@@ -113,13 +113,13 @@ void Cylinder::setClosed(bool is_closed) {
     m_closed = is_closed;
 }
 
-Tuple Cylinder::surfaceNormal(Tuple &point) {
-    float distance = point.x * point.x + point.z * point.z;
+Tuple Cylinder::surfaceNormal(Tuple &position, Intersection &i) {
+    float distance = position.x * position.x + position.z * position.z;
 
-    if (distance < 1 && point.y >= m_maximum - 0.00001) return Vector(0, 1, 0);
-    else if (distance < 1 && point.y <= m_minimum + 0.00001) return Vector(0, -1, 0);
+    if (distance < 1 && position.y >= m_maximum - 0.00001) return Vector(0, 1, 0);
+    else if (distance < 1 && position.y <= m_minimum + 0.00001) return Vector(0, -1, 0);
     
-    return Vector(point.x, 0, point.z);
+    return Vector(position.x, 0, position.z);
 }
 
 Bounds Cylinder::unitBounds() {

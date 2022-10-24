@@ -34,6 +34,8 @@ add_library(
     src/shapes/cylinder.cpp
     src/shapes/group.cpp
     src/shapes/bounds.cpp
+    src/shapes/triangle.cpp
+    src/shapes/smooth_triangle.cpp
 )
 target_include_directories(shapes PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(shapes primitives)
@@ -60,6 +62,12 @@ add_library(
 target_include_directories(lights PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_library(
+    extras
+    src/extras/obj_parser.cpp
+)
+target_include_directories(extras PUBLIC ${PROJECT_SOURCE_DIR}/src)
+
+add_library(
     patterns
     src/patterns/pattern.h
     src/patterns/striped_pattern.cpp
@@ -70,7 +78,7 @@ target_include_directories(patterns PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_executable(mainWriter ./src/main.cpp)
 target_link_libraries(mainWriter GTest::gtest GTest::gtest_main pthread 
-    primitives display shapes images lights scene patterns)
+    primitives display shapes images lights scene patterns extras)
 
 add_executable(
     tests
@@ -80,7 +88,8 @@ add_executable(
     src/tests/patternTest.cpp
     src/tests/reflectTest.cpp
     src/tests/cubeTest.cpp
-    src/tests/cylinderTest.cpp)
+    src/tests/cylinderTest.cpp
+    src/tests/triangleTest.cpp)
 target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(tests GTest::gtest GTest::gtest_main pthread
     primitives display shapes images lights scene patterns)

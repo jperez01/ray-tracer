@@ -9,7 +9,7 @@ class Cube : public Shape {
 
         void findIntersection(Ray &givenRay, Intersections &solutions);
         void checkAxis(float origin, float direction, std::vector<float> &solutions);
-        Tuple surfaceNormal(Tuple &point);
+        Tuple surfaceNormal(Tuple &position, Intersection &i);
 
         inline std::optional<Matrix> transform() { return m_transform; }
         inline Material material() { return m_material; }

@@ -31,9 +31,10 @@ TEST(cubeTest, rayMissesCube) {
 }
 
 TEST(cubeTest, cubeNormal) {
+    Intersection i{1.0};
     Cube c{};
     Tuple point = Point(1, 0.5, -0.8);
-    Tuple normal = c.surfaceNormal(point);
+    Tuple normal = c.surfaceNormal(point, i);
 
     EXPECT_TRUE(normal == Vector(1, 0, 0));
 }

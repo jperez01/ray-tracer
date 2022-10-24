@@ -11,7 +11,7 @@ class Plane : public Shape {
         Plane(Tuple &point, Tuple &normal, Material &material);
         Plane(Tuple &point, Tuple &normal, Matrix &transform, Material &material);
 
-        Tuple surfaceNormal(Tuple &position);
+        Tuple surfaceNormal(Tuple &position, Intersection &i);
         void findIntersection(Ray &givenRay, Intersections &results);
         Bounds unitBounds();
 

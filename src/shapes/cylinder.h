@@ -11,7 +11,7 @@ class Cylinder : public Shape {
         
         void findIntersection(Ray &givenRay, Intersections &solutions);
         void intersectCaps(Ray &ray, Intersections &solutions);
-        Tuple surfaceNormal(Tuple &point);
+        Tuple surfaceNormal(Tuple &position, Intersection &i);
         Bounds unitBounds();
 
         inline std::optional<Matrix> transform() { return m_transform; }

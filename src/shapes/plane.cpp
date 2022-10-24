@@ -29,7 +29,7 @@ Plane::Plane(Tuple &point, Tuple &normal, Matrix &transform, Material &material)
     m_material = material;
 }
 
-Tuple Plane::surfaceNormal(Tuple &position) {
+Tuple Plane::surfaceNormal(Tuple &position, Intersection &i) {
     return m_normal;
 }
 

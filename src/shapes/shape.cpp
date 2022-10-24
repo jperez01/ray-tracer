@@ -1,9 +1,9 @@
 #include "shapes/shape.h"
 
-Tuple Shape::globalNormal(Tuple &position) {
+Tuple Shape::globalNormal(Tuple &position, Intersection &i) {
     Shape* shape = this;
     Tuple local_point = worldToObject(shape, position);
-    Tuple local_normal = shape->surfaceNormal(local_point);
+    Tuple local_normal = shape->surfaceNormal(local_point, i);
 
     return normalToWorld(shape, local_normal);
 }

@@ -12,6 +12,11 @@ Group::Group(Matrix transform) :
     m_transform(std::optional<Matrix>{transform}),
     m_material(Material{}) {}
 
+Group::Group(Material &material) :
+    m_children(std::vector<Shape*>{}),
+    m_transform(std::optional<Matrix>{}),
+    m_material(material) {}
+
 void Group::setTransform(Matrix &matrix) {
     m_transform = std::optional<Matrix>{matrix};
 }
@@ -25,7 +30,7 @@ void Group::extendBounds(Shape* shape) {
     m_bounds.merge(child_bounds);
 }
 
-void Group::addShape(Shape* &shape) {
+void Group::addShape(Shape* shape) {
     extendBounds(shape);
     shape->setParent(this);
     shape->setMaterial(m_material);
@@ -68,4 +73,8 @@ void Group::checkAxis(float origin, float direction,
     if (*tmin > *tmax) {
         std::swap(*tmax, *tmin);
     }
+}
+
+Tuple Group::surfaceNormal(Tuple &position, Intersection &i) {
+    return Point(0, 0, 0);
 }
