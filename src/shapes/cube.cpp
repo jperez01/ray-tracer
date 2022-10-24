@@ -66,7 +66,7 @@ void Cube::setMaterial(Material &material) {
     m_material = material;
 }
 
-Tuple Cube::surfaceNormal(Tuple &point) {
+Tuple Cube::surfaceNormal(Tuple &point, Intersection &i) {
     float absx = abs(point.x), absy = abs(point.y), absz = abs(point.z);
     float maxc = std::max({absx, absy, absz});
 

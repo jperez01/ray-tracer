@@ -36,7 +36,9 @@ TEST(cylinderTest, surfaceNormal) {
     Cylinder c{};
     Tuple point = Point(0, 5, -1);
 
-    Tuple result = c.surfaceNormal(point);
+    Intersection i{0.0};
+
+    Tuple result = c.surfaceNormal(point, i);
     EXPECT_TRUE(result == Vector(0, 0, -1));
 }
 

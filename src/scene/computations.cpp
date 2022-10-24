@@ -7,7 +7,7 @@ Computations::Computations(Intersection &hit, Ray &ray) {
 
     m_point = ray.position(m_time);
     m_eye = -ray.direction();
-    m_normal = m_object->surfaceNormal(m_point);
+    m_normal = m_object->surfaceNormal(m_point, hit);
     m_over_point = m_point + m_normal * 0.01;
 
     m_reflect = reflect(ray.direction(), m_normal);
@@ -24,7 +24,7 @@ Computations::Computations(Intersection &hit, Ray &ray, Intersections &results) 
 
     m_point = ray.position(m_time);
     m_eye = -ray.direction();
-    m_normal = m_object->globalNormal(m_point);
+    m_normal = m_object->globalNormal(m_point, hit);
     m_over_point = m_point + m_normal * 0.01;
     m_under_point = m_point - m_normal * 0.01;
 

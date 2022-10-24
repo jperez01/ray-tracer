@@ -128,7 +128,7 @@ void findIntersection(Sphere &sphere, Ray &givenRay, Intersections &solutions) {
     }
 }
 
-Tuple Sphere::surfaceNormal(Tuple &position) {
+Tuple Sphere::surfaceNormal(Tuple &position, Intersection &i) {
     if (m_transform.has_value()) {
         Matrix inverse = m_transform.value().inverse();
         Matrix transpose = inverse.transpose();

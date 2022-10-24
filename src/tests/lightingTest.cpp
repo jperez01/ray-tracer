@@ -5,9 +5,10 @@
 #include <cmath>
 
 TEST(lightingTest, sphereNormals) {
+    Intersection i{0.0};
     Sphere first{};
     Tuple firstPoint = Point(1, 0, 0);
-    Tuple result = first.surfaceNormal(firstPoint);
+    Tuple result = first.surfaceNormal(firstPoint, i);
 
     EXPECT_FLOAT_EQ(result.x, 1.0);
     EXPECT_FLOAT_EQ(result.y, 0.0);
@@ -15,7 +16,7 @@ TEST(lightingTest, sphereNormals) {
 
     Sphere second{};
     Tuple secondPoint = Point(0, 1, 0);
-    result = second.surfaceNormal(secondPoint);
+    result = second.surfaceNormal(secondPoint, i);
 
     EXPECT_FLOAT_EQ(result.x, 0.0);
     EXPECT_FLOAT_EQ(result.y, 1.0);
@@ -23,7 +24,7 @@ TEST(lightingTest, sphereNormals) {
 
     Sphere third{};
     Tuple thirdPoint = Point(0, 0, 1);
-    result = third.surfaceNormal(thirdPoint);
+    result = third.surfaceNormal(thirdPoint, i);
 
     EXPECT_FLOAT_EQ(result.x, 0.0);
     EXPECT_FLOAT_EQ(result.y, 0.0);
@@ -31,12 +32,13 @@ TEST(lightingTest, sphereNormals) {
 }
 
 TEST(lightingTest, transformedNormals) {
+    Intersection i{0.0};
     Sphere first{};
     Matrix firstTransform = translationMatrix(0, 1, 0);
     first.setTransform(firstTransform);
 
     Tuple firstPoint = Point(0, 1.70711, -0.70711);
-    Tuple firstResult = first.surfaceNormal(firstPoint);
+    Tuple firstResult = first.surfaceNormal(firstPoint, i);
 
     EXPECT_TRUE(epsilon_eq(firstResult.x, 0));
     EXPECT_TRUE(epsilon_eq(firstResult.y, 0.70711));
@@ -47,7 +49,7 @@ TEST(lightingTest, transformedNormals) {
     second.setTransform(secondTransform);
 
     Tuple secondPoint = Point(0, sqrt(2) / 2, -sqrt(2) / 2);
-    Tuple secondResult = second.surfaceNormal(secondPoint);
+    Tuple secondResult = second.surfaceNormal(secondPoint, i);
 
     EXPECT_TRUE(epsilon_eq(secondResult.x, 0));
     EXPECT_TRUE(epsilon_eq(secondResult.y, 0.97014));

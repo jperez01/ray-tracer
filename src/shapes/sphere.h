@@ -21,7 +21,7 @@ class Sphere : public Shape {
         Sphere(Tuple &center, float radius, const Material &material);
         Sphere(Tuple &center, float radius, const Material &material, Matrix &transform);
 
-        Tuple surfaceNormal(Tuple &position);
+        Tuple surfaceNormal(Tuple &position, Intersection &i);
         void findIntersection(Ray &givenRay, Intersections &solutions);
 
         inline Tuple center() { return m_center; }

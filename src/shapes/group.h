@@ -6,11 +6,12 @@ class Group : public Shape {
     public:
         Group();
         Group(Matrix transform);
-        void addShape(Shape* &shape);
+        Group(Material &material);
+        void addShape(Shape* shape);
         void findIntersection(Ray &givenRay, Intersections &solutions);
         void checkAxis(float origin, float direction,
             float *tmin, float *tmax, float direction_min, float direction_max);
-        Tuple surfaceNormal(Tuple &position);
+        Tuple surfaceNormal(Tuple &position, Intersection &i);
         void extendBounds(Shape *shape);
 
         void setTransform(Matrix &matrix);
@@ -20,6 +21,7 @@ class Group : public Shape {
         inline std::optional<Matrix> transform() { return m_transform; }
         inline Material material() { return m_material; }
         inline Bounds unitBounds() { return m_bounds; }
+        inline int size() { return m_children.size(); }
 
     private:
         std::vector<Shape*> m_children;

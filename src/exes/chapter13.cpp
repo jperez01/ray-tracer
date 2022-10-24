@@ -15,16 +15,12 @@
 #include "patterns/gradient_pattern.h"
 #include "patterns/ring_pattern.h"
 
-#include "extras/obj_parser.h"
-
 #include <string>
 #include <vector>
 #include <thread>
 #include <queue>
 #include <chrono>
 #include <math.h>
-#include <iostream>
-#include <fstream>
 
 int size = 1000;
 std::mutex queue_mutex;
@@ -49,6 +45,65 @@ void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &cam
             Color result = world.colorAt(ray, background, 5);
 
             canvas.writePixel(x, y, result);
+        }
+    }
+}
+
+void handleRays(std::queue<int> *queue, Canvas &canvas, Tuple &start, Color &background, 
+    std::vector<Sphere> &shapes, std::vector<PointLight> &pointLights, std::vector<DirectionalLight> &dirLights) {
+    while (1) {
+        int x;
+        queue_mutex.lock();
+        if (queue->empty()) {
+            queue_mutex.unlock();
+            return;
+        } else {
+            x = queue->front();
+            queue->pop();
+        }
+        queue_mutex.unlock();
+
+        float deltaX = 1.0 / size;
+        float deltaY = 1.0 / size;
+
+        for (int y = 0; y < size; y++) {
+            float convertedX = (x * deltaX) * 20.0 - 10.0;
+            float convertedY = (y * deltaY) * 20.0 - 10.0;
+
+            Tuple endPosition = Tuple(convertedX, convertedY, 0);
+            Tuple rayDirection = endPosition - start;
+            Ray ray(start, rayDirection.normalized());
+
+            std::optional<Intersection> finalHit;
+
+            for (Sphere &sphere : shapes) {
+                Intersections results{};
+                findIntersection(sphere, ray, results);
+                Intersection hit = results.hit();
+                if ((!finalHit.has_value() || finalHit.value().m_time > hit.m_time) && hit.m_time > 0) {
+                    hit.m_shape = &sphere;
+                    finalHit.emplace(hit);
+                }
+            }
+
+            if (finalHit.has_value()) {
+                Tuple finalPosition = ray.position(finalHit.value().m_time);
+                Tuple viewDir = -ray.direction();
+                auto *shape = (Sphere*) finalHit.value().m_shape;
+                Material material = shape->material();
+                Tuple normal = shape->surfaceNormal(finalPosition);
+                Color finalColor(0.0, 0.0, 0.0);
+
+                for (PointLight &light : pointLights) {
+                    finalColor = finalColor + calculateColorFromPoint(light, normal, finalPosition, viewDir, material);
+                }
+                for (DirectionalLight &light : dirLights) {
+                    finalColor = finalColor + calculateColorFromDirection(light, normal, viewDir, shape);
+                }
+                canvas.writePixel(x, y, finalColor);
+            } else {
+                canvas.writePixel(x, y, background);
+            }
         }
     }
 }
@@ -109,23 +164,12 @@ int main() {
     Matrix cube_transform = translationMatrix(2, 2, 15) * scaleMatrix(3, 3, 1);
     Cylinder c(0.0, 10.0, cube_transform, cube_material);
 
-    std::ifstream objFile("../models/teapot.obj");
-    std::stringstream ss;
-    if (objFile) {
-        ss << objFile.rdbuf();
-        objFile.close();
-    }
-
-    ObjParser parser{ss};
-    Group* super_group = parser.superGroup();
-
     objects.push_back(&floor);
     objects.push_back(&middle_sphere);
     objects.push_back(&left_sphere);
     objects.push_back(&right_sphere);
     objects.push_back(glassy_thing);
     objects.push_back(&c);
-    objects.push_back(super_group);
 
     std::vector<PointLight> pointLights;
     Color pointColor(1.0, 1.0, 1.0);

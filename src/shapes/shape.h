@@ -2,6 +2,7 @@
 #define RTC_SHAPE
 
 class Intersections;
+class Intersection;
 #include <optional>
 #include "primitives/tuple.h"
 #include "primitives/matrix.h"
@@ -15,8 +16,8 @@ class Shape {
         virtual ~Shape() { }
 
         Bounds unitBounds();
-        Tuple globalNormal(Tuple &position);
-        virtual Tuple surfaceNormal(Tuple &position) = 0;
+        Tuple globalNormal(Tuple &position, Intersection &i);
+        virtual Tuple surfaceNormal(Tuple &position, Intersection &i) = 0;
         virtual void findIntersection(Ray &ray, Intersections &solutions) = 0;
 
         virtual Material material() = 0;
