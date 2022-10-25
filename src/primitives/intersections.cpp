@@ -58,3 +58,35 @@ Intersection Intersections::hit() {
     }
     return hit;
 }
+
+void Intersections::merge(Intersections &other) {
+    std::vector<Intersection> merged;
+    std::vector<Intersection>::const_iterator other_i = other.m_intersections.begin();
+    std::vector<Intersection>::const_iterator i = m_intersections.begin();
+
+    while (other_i != other.m_intersections.end() && i != m_intersections.end()) {
+        Intersection other_int = *other_i;
+        Intersection this_int = *i;
+        if (other_int.m_time < this_int.m_time) {
+            merged.push_back(other_int);
+            other_i++;
+        } else {
+            merged.push_back(this_int);
+            i++;
+        }
+    }
+
+    while (other_i != other.m_intersections.end()) {
+        Intersection other_int = *other_i;
+        merged.push_back(other_int);
+        other_i++;
+    }
+
+    while (i != m_intersections.end()) {
+        Intersection this_int = *i;
+        merged.push_back(this_int);
+        i++;
+    }
+
+    m_intersections = merged;
+}

@@ -17,6 +17,8 @@ class Shape {
 
         Bounds unitBounds();
         Tuple globalNormal(Tuple &position, Intersection &i);
+        bool includes(Shape *other);
+        
         virtual Tuple surfaceNormal(Tuple &position, Intersection &i) = 0;
         virtual void findIntersection(Ray &ray, Intersections &solutions) = 0;
 

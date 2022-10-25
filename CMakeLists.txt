@@ -36,6 +36,7 @@ add_library(
     src/shapes/bounds.cpp
     src/shapes/triangle.cpp
     src/shapes/smooth_triangle.cpp
+    src/shapes/constructive_solid_geometry.cpp
 )
 target_include_directories(shapes PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(shapes primitives)

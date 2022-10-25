@@ -13,6 +13,7 @@ class Group : public Shape {
             float *tmin, float *tmax, float direction_min, float direction_max);
         Tuple surfaceNormal(Tuple &position, Intersection &i);
         void extendBounds(Shape *shape);
+        bool includes(Shape* other);
 
         void setTransform(Matrix &matrix);
         void setMaterial(Material &material);

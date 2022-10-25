@@ -8,6 +8,10 @@ Tuple Shape::globalNormal(Tuple &position, Intersection &i) {
     return normalToWorld(shape, local_normal);
 }
 
+bool Shape::includes(Shape *other) {
+    return this == other;
+}
+
 Tuple worldToObject(Shape* &shape, Tuple &point) {
     Tuple resultPoint;
     if (shape->parent() != nullptr) {

@@ -56,81 +56,124 @@ void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &cam
 int main() {
     Canvas canvas = Canvas(500, 500);
 
-    Tuple from = Point(0.0, 1.5, -5.0);
-    Tuple to = Point(0.0, 1.0, 0.0);
-    Tuple up = Vector(0.0, 1.0, 0.0);
+    Tuple from = Point(-6.0, 6.0, -10.0);
+    Tuple to = Point(6.0, 0, 6.0);
+    Tuple up = Vector(-0.45, 1.0, 0.0);
     Matrix matrix = viewTransform(from, to, up);
-    Camera camera(500.0, 500.0, M_PI/3, matrix);
+    Camera camera(500.0, 500.0, 0.785, matrix);
 
-    Color a(1.0, 1.0, 1.0);
-    Color b(1.0, 0.2, 0.1);
-    Matrix patternTransform = scaleMatrix(0.15, 1.0, 1.0);
-    StripedPattern pattern(a, b, patternTransform);
+    Color whiteColor(1.0, 1.0, 1.0);
+    Material whiteMaterial(whiteColor, 0.1, 0.0, 0.7, 1.0);
+    whiteMaterial.setReflective(0.1);
 
-    Color cr(1.0, 0.0, 0.0);
-    Color cb(0.0, 0.0, 1.0);
-    Matrix gradientTransform = scaleMatrix(1.0, 1.0, 1.0);
-    GradientPattern gradient(cr, cb, gradientTransform);
+    Color blueColor(0.537, 0.831, 0.914);
+    Material blueMaterial(blueColor, 0.1, 0.0, 0.7, 0.1);
 
-    Color a2(0.0, 1.0, 0.0);
-    Color b2(0.3, 0.0, 1.0);
-    Matrix ringTransform = scaleMatrix(2.3, 1.0, 5.5);
-    RingPattern ring(a2, b2, ringTransform);
+    Color redColor(0.941, 0.322, 0.388);
+    Material redMaterial(redColor, 0.1, 0.0, 0.7, 0.1);
+
+    Color purpleColor(0.373, 0.404, 0.550);
+    Material purpleMaterial(blueColor, 0.1, 0.0, 0.7, 0.1);
+
+    Matrix standardTransform = translationMatrix(1, -1, 1) * scaleMatrix(0.5, 0.5, 0.5);
+    Matrix largeObject = scaleMatrix(3.5, 3.5, 3.5) * standardTransform;
+    Matrix mediumObject = scaleMatrix(3, 3, 3) * standardTransform;
+    Matrix smallObject = scaleMatrix(2, 2, 2) * standardTransform;
+
+    Tuple planePoint(0, 0.0, 0);
+    Tuple planeNormal(0, 0.0, 1.0);
+    Matrix planeTransform = translationMatrix(0, 0, 500);
+    Color planeColor(1.0, 1.0, 0.0);
+    Material planeMaterial(planeColor, 1.0, 0.0, 0.0, 1.0);
+    Plane plane(planePoint, planeNormal, planeTransform, planeMaterial);
+
+    Material sphereMaterial(purpleColor, 0.0, 1.0, 0.2, 200);
+    sphereMaterial.setReflective(0.7);
+    sphereMaterial.setTransparency(0.7);
+    sphereMaterial.setRefractiveIndex(1.5);
+    Sphere sphere(sphereMaterial, largeObject);
+
+    Matrix cube1Transform = translationMatrix(4, 0, 0) * mediumObject;
+    Cube cube(cube1Transform, whiteMaterial);
+
+    Matrix cube2Transform = translationMatrix(8.5, 1.5, -0.5) * largeObject;
+    Cube cube2(cube2Transform, blueMaterial);
+
+    Matrix cube3Transform = translationMatrix(0, 0, 4) * largeObject;
+    Cube cube3(cube3Transform, redMaterial);
+
+    Matrix cube4Transform = translationMatrix(4, 0, 4) * smallObject;
+    Cube cube4(cube4Transform, whiteMaterial);
+
+    Matrix cube5Transform = translationMatrix(7.5, 0.5, 4) * mediumObject;
+    Cube cube5(cube5Transform, purpleMaterial);
+
+    Matrix cube6Transform = translationMatrix(-0.25, 0.25, 8) * mediumObject;
+    Cube cube6(cube6Transform, whiteMaterial);
+
+    Matrix cube7Transform = translationMatrix(4, 1, 7.5) * largeObject;
+    Cube cube7(cube7Transform, blueMaterial);
+
+    Matrix cube8Transform = translationMatrix(10, 2, 7.5) * mediumObject;
+    Cube cube8(cube8Transform, redMaterial);
+
+    Matrix cube9Transform = translationMatrix(8, 2, 12) * smallObject;
+    Cube cube9(cube9Transform, whiteMaterial);
+
+    Matrix cube10Transform = translationMatrix(20, 1, 9) * smallObject;
+    Cube cube10(cube10Transform, whiteMaterial);
+
+    Matrix cube11Transform = translationMatrix(-0.5, -5, 0.25) * largeObject;
+    Cube cube11(cube11Transform, blueMaterial);
+
+    Matrix cube12Transform = translationMatrix(4, -4, 0) * largeObject;
+    Cube cube12(cube12Transform, redMaterial);
+
+    Matrix cube13Transform = translationMatrix(8.5, -4, 0) * largeObject;
+    Cube cube13(cube13Transform, whiteMaterial);
+
+    Matrix cube14Transform = translationMatrix(0, -4, 4) * largeObject;
+    Cube cube14(cube14Transform, whiteMaterial);
+
+    Matrix cube15Transform = translationMatrix(-0.5, -4.5, 8) * largeObject;
+    Cube cube15(cube15Transform, purpleMaterial);
+
+    Matrix cube16Transform = translationMatrix(0, -8, 4) * largeObject;
+    Cube cube16(cube16Transform, whiteMaterial);
+
+    Matrix cube17Transform = translationMatrix(-0.5, -8.5, 8) * largeObject;
+    Cube cube17(cube17Transform, whiteMaterial);
 
     std::vector<Shape *> objects;
 
-    Tuple point = Point(0, -5, 10);
-    Tuple normal = Vector(0, 1, 0);
-    Material material(Color(1.0, 0.8, 0.7), 0.4, 0.7, 0.3, 200.0, 0.5);
-    Plane floor(point, normal, material);
+    objects.push_back(&sphere);
+    objects.push_back(&cube);
+    objects.push_back(&cube2);
+    objects.push_back(&cube3);
+    objects.push_back(&cube4);
+    objects.push_back(&cube5);
+    objects.push_back(&cube6);
+    objects.push_back(&cube7);
+    objects.push_back(&cube8);
+    objects.push_back(&cube9);
+    objects.push_back(&cube10);
+    objects.push_back(&cube11);
+    objects.push_back(&cube12);
+    objects.push_back(&cube13);
+    objects.push_back(&cube14);
+    objects.push_back(&cube15);
+    objects.push_back(&cube16);
+    objects.push_back(&cube17);
 
-    Matrix middle_transform = translationMatrix(-0.5, 1, 0.5);
-    Material middle_material(Color(0.1, 1, 0.5), 0.1, 0.7, 0.3, 200.0, 0.5);
-    middle_material.setReflective(0.4);
-    middle_material.setTransparency(0.4);
-    middle_material.setRefractiveIndex(DIAMOND);
-    middle_material.setPattern(&pattern);
-    Sphere middle_sphere(middle_material, middle_transform);
-
-    Matrix right_sphere_transform = translationMatrix(1.5, 0.5, -0.5) * scaleMatrix(0.5, 0.5, 0.5);
-    Material right_sphere_material(Color(0.5, 1, 0.1), 0.1, 0.7, 0.3, 200.0, 0.5);
-    right_sphere_material.setPattern(&gradient);
-    Sphere right_sphere(right_sphere_material, right_sphere_transform);
-
-    Matrix left_sphere_transform = translationMatrix(-1.5, 0.33, -0.75) * scaleMatrix(0.33, 0.33, 0.33);
-    Material left_sphere_material(Color(1, 0.8, 0.1), 0.1, 0.7, 0.3, 2.0, 0.5);
-    Sphere left_sphere(left_sphere_material, left_sphere_transform);
-
-    Matrix glassy_transform = translationMatrix(-2, 2, 5);
-    Shape* glassy_thing = GlassySphere();
-    glassy_thing->setTransform(glassy_transform);
-
-    Material cube_material(Color(0.4, 0.8, 0.1), 0.2, 0.7, 0.3, 200.0, 0.5);
-    Matrix cube_transform = translationMatrix(2, 2, 15) * scaleMatrix(3, 3, 1);
-    Cylinder c(0.0, 10.0, cube_transform, cube_material);
-
-    std::ifstream objFile("../models/teapot.obj");
-    std::stringstream ss;
-    if (objFile) {
-        ss << objFile.rdbuf();
-        objFile.close();
-    }
-
-    ObjParser parser{ss};
-    Group* super_group = parser.superGroup();
-
-    objects.push_back(&floor);
-    objects.push_back(&middle_sphere);
-    objects.push_back(&left_sphere);
-    objects.push_back(&right_sphere);
-    objects.push_back(glassy_thing);
-    objects.push_back(&c);
-    objects.push_back(super_group);
 
     std::vector<PointLight> pointLights;
     Color pointColor(1.0, 1.0, 1.0);
-    Tuple lightPosition(-10.0, 10.0, -10.0);
+    Tuple lightPosition = Point(50.0, 100.0, -50.0);
     pointLights.push_back(PointLight(pointColor, lightPosition));
+
+    Color otherColor(0.2, 0.2, 0.2);
+    Tuple lightPosition2 = Point(-400.0, 50.0, -10.0);
+    pointLights.push_back(PointLight(otherColor, lightPosition2));
 
     std::vector<DirectionalLight> dirLights;
 

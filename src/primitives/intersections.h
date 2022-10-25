@@ -29,11 +29,14 @@ class Intersections {
     public:
         Intersections();
         Intersections(std::vector<Intersection> &intersections);
+
+        void merge(Intersections &other);
         Intersection hit();
         std::optional<Intersection> hitOptional();
-        int size();
         void add(Intersection &intersection);
         void sortIntersections();
+
+        int size();
         inline std::vector<Intersection> intersectionsList() { return m_intersections; }
         Intersection operator[](int index);
 

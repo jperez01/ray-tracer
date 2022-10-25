@@ -37,6 +37,14 @@ void Group::addShape(Shape* shape) {
     m_children.push_back(shape);
 }
 
+bool Group::includes(Shape* other) {
+    for (auto &child : m_children) {
+        if (child->includes(other)) return true;
+    }
+
+    return false;
+}
+
 void Group::findIntersection(Ray &givenRay, Intersections &solutions) {
     float xmin, xmax, ymin, ymax, zmin, zmax;
 
