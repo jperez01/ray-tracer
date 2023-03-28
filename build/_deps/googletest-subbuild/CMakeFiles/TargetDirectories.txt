@@ -1,0 +1,3 @@
+C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/ALL_BUILD.dir
+C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/ZERO_CHECK.dir

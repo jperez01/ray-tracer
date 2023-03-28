@@ -1,0 +1,10 @@
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\273DFF8EC6B40425D9B6A5F521BBF677\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild -BC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/googletest-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
