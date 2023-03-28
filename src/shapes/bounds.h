@@ -1,22 +1,21 @@
 #pragma once
 
-#include "primitives/matrix.h"
-#include "primitives/tuple.h"
+#include "primitives/newPrimitives.h"
 
 class Bounds {
     public:
         Bounds();
-        Bounds(Tuple min, Tuple max);
+        Bounds(Point min, Point max);
         ~Bounds() = default;
 
-        void extendTo(Tuple &point);
+        void extendTo(Point &point);
         void merge(Bounds &other);
-        Tuple center();
+        Point center();
 
-        inline Tuple max() { return m_max; }
-        inline Tuple min() { return m_min; }
+        inline Point max() { return m_max; }
+        inline Point min() { return m_min; }
 
     private:
-        Tuple m_min;
-        Tuple m_max;
+        Point m_min;
+        Point m_max;
 };

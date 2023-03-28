@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps\gtest-subbuild\CMakeFiles\859252de34cf7c86344c1401459bd1ee\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{2CF28AA4-6091-31E0-B736-CCD85F6D6183}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,31 +1,37 @@
 #include "shapes/triangle.h"
 #include <cmath>
 
-Triangle::Triangle() :
-    m_vertex1(Point(1, 0, 0)),
-    m_vertex2(Point(0, 1, 0)),
-    m_vertex3(Point(0, 0, 1)) {
-        calculateInfo();
+TriangleMesh::TriangleMesh(glm::mat4 &objectToWorld, int numTriangles, std::vector<int> &newIndices, std::vector<Point> &newPositions,
+    std::vector<Vector> &newNormals, std::vector<UV> &newUvs) : nTriangles(numTriangles) {
+    nVertices = newPositions.size();
+    vertexIndices = std::vector(newIndices);
+
+    positions.resize(newPositions.size());
+    normals.resize(newNormals.size());
+    uvs.resize(newUvs.size());
+    for (int i = 0; i < positions.size(); i++) {
+        positions[i] = objectToWorld * newPositions[i];
     }
 
-Triangle::Triangle(Tuple &v1, Tuple &v2, Tuple &v3) :
-    m_vertex1(v1),
-    m_vertex2(v2),
-    m_vertex3(v3) {
-        calculateInfo();
+    for (int i = 0; i < normals.size(); i++) {
+        normals[i] = objectToWorld * newNormals[i];
     }
 
-void Triangle::setTransform(Matrix &transform) {
-    m_transform = std::optional<Matrix>{transform};
+    for (int i = 0; i < uvs.size(); i++) {
+        uvs[i] = objectToWorld * newUvs[i];
+    }
 }
-void Triangle::setMaterial(Material &material) {
-    m_material = material;
-}
+
+Triangle::Triangle(const glm::mat4 *objectToWorld, const glm::mat4 *worldToObject,
+    bool reverseOrientation, std::shared_ptr<TriangleMesh> &mesh, int triNumber) :
+        Shape(objectToWorld, worldToObject, reverseOrientation), mesh(mesh) {
+        v = &mesh->vertexIndices[3 * triNumber];
+    }
 
 void Triangle::calculateInfo() {
     m_e1 = m_vertex2 - m_vertex1;
     m_e2 = m_vertex3 - m_vertex1;
-    m_normal = cross(m_e2, m_e1).normalized();
+    m_normal = glm::normalize(glm::cross(m_e2, m_e1));
 }
 
 Tuple Triangle::surfaceNormal(Tuple &point, Intersection &i) {
@@ -33,9 +39,12 @@ Tuple Triangle::surfaceNormal(Tuple &point, Intersection &i) {
 }
 
 void Triangle::findIntersection(Ray &givenRay, Intersections &solutions) {
-    Tuple cross_dir = cross(givenRay.direction(), m_e2);
+    glm::vec4 e1 = mesh->positions[v[1]] - mesh->positions[v[0]];
+    glm::vec4 e2 = mesh->positions[v[2]] - mesh->positions[v[1]];
 
-    float determinant = dot(cross_dir, m_e1);
+    Vector cross_dir = glm::cross(glm::vec3(givenRay.direction()), glm::vec3(e2));
+
+    float determinant = dot(cross_dir, e1);
     if (fabs(determinant) < 0.0001) return;
 
     float f = 1.0 / determinant;

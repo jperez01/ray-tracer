@@ -20,13 +20,13 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <mutex>
 #include <queue>
 #include <chrono>
 #include <math.h>
 #include <iostream>
 #include <fstream>
 
-int size = 1000;
 std::mutex queue_mutex;
 
 void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &camera) {
@@ -53,14 +53,30 @@ void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &cam
     }
 }
 
+void newHandleRay(int startRow, int endRow, Canvas &canvas, World &world, Camera& camera) {
+    printf("Start Index: %d End Index: %d \n", startRow, endRow);
+    while (startRow < endRow) {
+        Color background(0.0, 0.0, 0.0);
+
+        for (int y = 0; y < camera.vsize(); y++) {
+            Ray ray = camera.calculateRayForPixel(startRow, y);
+            Color result = world.colorAt(ray, background, 5);
+
+            canvas.writePixel(startRow, y, result);
+        }
+        startRow++;
+    }
+}
+
 int main() {
-    Canvas canvas = Canvas(500, 500);
+    printf("here \n");
+    Canvas canvas = Canvas(400, 400);
 
     Tuple from = Point(-6.0, 6.0, -10.0);
     Tuple to = Point(6.0, 0, 6.0);
     Tuple up = Vector(-0.45, 1.0, 0.0);
     Matrix matrix = viewTransform(from, to, up);
-    Camera camera(500.0, 500.0, 0.785, matrix);
+    Camera camera(400.0, 400.0, 0.785, matrix);
 
     Color whiteColor(1.0, 1.0, 1.0);
     Material whiteMaterial(whiteColor, 0.1, 0.0, 0.7, 1.0);
@@ -155,16 +171,6 @@ int main() {
     objects.push_back(&cube6);
     objects.push_back(&cube7);
     objects.push_back(&cube8);
-    objects.push_back(&cube9);
-    objects.push_back(&cube10);
-    objects.push_back(&cube11);
-    objects.push_back(&cube12);
-    objects.push_back(&cube13);
-    objects.push_back(&cube14);
-    objects.push_back(&cube15);
-    objects.push_back(&cube16);
-    objects.push_back(&cube17);
-
 
     std::vector<PointLight> pointLights;
     Color pointColor(1.0, 1.0, 1.0);
@@ -179,18 +185,18 @@ int main() {
 
     World world(objects, dirLights, pointLights);
 
-    std::queue<int> rows = std::queue<int>();
-    auto processor_count = std::thread::hardware_concurrency() - 3;
-    std::vector<std::thread> workers;
-
-    for (int x = 0; x < camera.hsize(); x++) {
-        rows.push(x);
-    }
+    auto processor_count = std::thread::hardware_concurrency() - 2;
+    int range = camera.hsize() / processor_count;
 
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
+    std::vector<std::thread> workers;
     for (int i = 0; i < processor_count; ++i) {
-        std::thread worker(handleRay, &rows, std::ref(canvas), std::ref(world), std::ref(camera));
+        std::vector<int> threadRows;
+
+        int start = i * range, end = std::min((int)camera.hsize(), (i+1) * range);
+
+        std::thread worker(newHandleRay, start, end, std::ref(canvas), std::ref(world), std::ref(camera));
         workers.emplace_back(std::move(worker));
     }
 

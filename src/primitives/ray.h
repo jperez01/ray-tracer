@@ -1,29 +1,28 @@
 #ifndef RTC_RAY
 #define RTC_RAY
 
-#include "primitives/tuple.h"
-#include "primitives/matrix.h"
+#include "newPrimitives.h"
 #include <string>
 
 class Ray {
 
     public:
         Ray();
-        Ray(Tuple origin, Tuple direction);
+        Ray(glm::vec4 origin, glm::vec4 direction);
 
-        Tuple position(float time);
+        glm::vec4 position(float time);
         std::string debugString();
 
-        inline Tuple origin() { return m_origin; }
-        inline Tuple direction() { return m_direction; }
-        void setOrigin(Tuple origin);
-        void setDirection(Tuple direction);
+        inline glm::vec4 origin() { return m_origin; }
+        inline glm::vec4 direction() { return m_direction; }
+        void setOrigin(glm::vec4 origin);
+        void setDirection(glm::vec4 direction);
     
     private:
-        Tuple m_origin;
-        Tuple m_direction;
+        glm::vec4 m_origin;
+        glm::vec4 m_direction;
 };
 
-Ray transformRay(Ray &ray, Matrix &matrix);
+Ray transformRay(Ray &ray, glm::mat4 &matrix);
 
 #endif

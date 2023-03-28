@@ -1,0 +1,10 @@
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\859252DE34CF7C86344C1401459BD1EE\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild -BC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/gtest-populate"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/859252de34cf7c86344c1401459bd1ee/gtest-populate.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/843a5ac642614517e1f3a3c30da38675/gtest-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/655bf7cc47cb445330a1714b673095f1/gtest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"gtest-populate"
+		],
+		"name" : "gtest-populate"
+	}
+}

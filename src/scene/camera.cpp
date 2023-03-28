@@ -5,7 +5,7 @@ Camera::Camera() :
  m_hsize(1.0), 
  m_vsize(1.0), 
  m_field_of_view(1.0), 
- m_transform(identityMatrix(4)) {
+ m_transform(glm::mat4(1.0f)) {
     calculatePixelSize();
  }
 
@@ -13,11 +13,11 @@ Camera::Camera(float hsize, float vsize, float angle) :
  m_hsize(hsize), 
  m_vsize(vsize), 
  m_field_of_view(angle), 
- m_transform(identityMatrix(4)) {
+ m_transform(glm::mat4(1.0f)) {
     calculatePixelSize();
  }
 
-Camera::Camera(float hsize, float vsize, float angle, Matrix &transform) :
+Camera::Camera(float hsize, float vsize, float angle, glm::mat4 &transform) :
  m_hsize(hsize), 
  m_vsize(vsize), 
  m_field_of_view(angle), 
@@ -40,7 +40,7 @@ void Camera::calculatePixelSize() {
     m_pixel_size = m_half_width * 2 / m_hsize;
 }
 
-void Camera::setTransform(Matrix &transform) {
+void Camera::setTransform(glm::mat4 &transform) {
     m_transform = transform;
 }
 
@@ -51,10 +51,10 @@ Ray Camera::calculateRayForPixel(float x, float y) {
     float world_x = m_half_width - xoffset;
     float world_y = m_half_height - yoffset;
 
-    Matrix inverseTransform = m_transform.inverse();
-    Tuple pixel = inverseTransform * Point(world_x, world_y, -1.0);
-    Tuple origin = inverseTransform * Point(0, 0, 0);
-    Tuple direction = (pixel - origin).normalized();
+    glm::mat4 inverseTransform = glm::inverse(m_transform);
+    glm::vec4 pixel = inverseTransform * rtutil::Point(world_x, world_y, -1.0);
+    glm::vec4 origin = inverseTransform * rtutil::Point(0, 0, 0);
+    glm::vec4 direction = glm::normalize(pixel - origin);
 
     return Ray(origin, direction);
 }

@@ -1,22 +1,25 @@
 cmake_minimum_required(VERSION 3.22)
 project(rayTracer VERSION 1.0.0)
-include(FetchContent)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+option(gtest_disable_pthreads "Disable uses of pthreads in gtest." ON)
+
 enable_testing()
-find_package(GTest REQUIRED)
+
 set(CMAKE_OSX_ARCHITECTURES "arm64")
 
-add_library(
-    primitives
-    src/primitives/color.cpp
-    src/primitives/math.h
-    src/primitives/tuple.cpp
-    src/primitives/intersections.cpp
-    src/primitives/ray.cpp
-    src/primitives/matrix.cpp
-)
-target_include_directories(primitives PUBLIC ${PROJECT_SOURCE_DIR}/src)
+add_subdirectory(third_party)
+add_subdirectory(src)
 
 add_library(
     display
@@ -54,6 +57,7 @@ add_library(
     src/scene/camera.cpp
 )
 target_include_directories(scene PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_link_libraries(scene primitives)
 
 add_library(
     lights
@@ -78,7 +82,7 @@ add_library(
 target_include_directories(patterns PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_executable(mainWriter ./src/main.cpp)
-target_link_libraries(mainWriter GTest::gtest GTest::gtest_main pthread 
+target_link_libraries(mainWriter glm
     primitives display shapes images lights scene patterns extras)
 
 add_executable(
@@ -92,5 +96,8 @@ add_executable(
     src/tests/cylinderTest.cpp
     src/tests/triangleTest.cpp)
 target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/src)
-target_link_libraries(tests GTest::gtest GTest::gtest_main pthread
+target_link_libraries(tests GTest::gtest GTest::gtest_main 
     primitives display shapes images lights scene patterns)
+
+include(GoogleTest)
+gtest_discover_tests(tests)

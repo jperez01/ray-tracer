@@ -1,0 +1,164 @@
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/download-gtest-populate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/verify-gtest-populate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/extract-gtest-populate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-UPDATE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-update
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps\gtest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps\gtest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps\gtest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\655BF7CC47CB445330A1714B673095F1\GTEST-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\jpabl\Documents\projects\ray-tracer\build\_deps\gtest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\843A5AC642614517E1F3A3C30DA38675\GTEST-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/Debug/gtest-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/gtest-populate-prefix/src/gtest-populate-stamp/Debug/gtest-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKEFILES\859252DE34CF7C86344C1401459BD1EE\GTEST-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\_DEPS\GTEST-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild -BC:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild --check-stamp-file C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/gtest-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
