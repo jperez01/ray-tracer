@@ -9,6 +9,8 @@ class Color : public Tuple {
         Color(float r, float g, float b);
         ~Color() = default;
 
+        void clamp();
+
         float r() const { return this->x; }
         float g() const { return this->y; }
         float b() const { return this->z; }

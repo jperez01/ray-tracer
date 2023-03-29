@@ -1,57 +1,47 @@
 #include "primitives/ray.h"
-#include "primitives/tuple.h"
 
 #include <sstream>
 
 Ray::Ray() {
-    m_origin = Tuple(0, 0, 0);
-    m_direction = Tuple(0, 0, 0);
+    origin = Point3f(0, 0, 0);
+    direction = Vector3f(0, 0, 0);
 }
 
-Ray::Ray(Tuple origin, Tuple direction) {
-    m_origin = origin;
-    m_direction = direction;
+Ray::Ray(Point3f origin, Vector3f direction) {
+    this->origin = origin;
+    this->direction = direction;
 }
 
-Tuple Ray::position(float time) {
-    return this->origin() + this->direction() * time;
+Point3f Ray::position(float time) {
+    return origin + direction * time;
 }
-
-void Ray::setOrigin(Tuple origin) {
-    m_origin = origin;
-}
-
-void Ray::setDirection(Tuple direction) {
-    m_direction = direction;
-}
-    
 
 std::string Ray::debugString() {
     std::stringstream stream;
 
     stream << "origin: ";
-    stream << m_origin.x;
+    stream << origin.x;
     stream << " ";
-    stream << m_origin.y;
+    stream << origin.y;
     stream << " ";
-    stream << m_origin.z;
+    stream << origin.z;
     stream << " ";
-    stream << m_origin.w;
+    stream << 1.0;
     stream << "\n";
 
     stream << "direction: ";
-    stream << m_direction.x;
+    stream << direction.x;
     stream << " ";
-    stream << m_direction.y;
+    stream << direction.y;
     stream << " ";
-    stream << m_direction.z;
+    stream << direction.z;
     stream << " ";
-    stream << m_direction.w;
+    stream << 0.0;
     stream << "\n";
 
     return stream.str();
 }
 
-Ray transformRay(Ray &ray, Matrix &matrix) {
-    return Ray(matrix * ray.origin(), (matrix * ray.direction()));
+Ray transformRay(Ray &ray, Transform &matrix) {
+    return Ray(matrix(ray.origin), matrix(ray.direction));
 }

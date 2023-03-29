@@ -1,15 +1,14 @@
-#ifndef RTC_PATTERN
-#define RTC_PATTERN
+#pragma once
 
-class Material;
-class Shape;
 #include "primitives/color.h"
-#include "shapes/shape.h"
+#include "core/transform.h"
+
+using pbrt::Transform;
+using pbrt::Point3f;
 
 class Pattern {
     public:
         virtual ~Pattern() { }
-        virtual Color getColorAt(Tuple &point, Shape &shape) = 0;
+        virtual Color getColorAt(Point3f &point) = 0;
+        virtual Color getColorAt(Point3f &point, Transform &transform) = 0;
 };
-
-#endif

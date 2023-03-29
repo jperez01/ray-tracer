@@ -2,28 +2,10 @@
 #include <cmath>
 #include <algorithm>
 
-Group::Group() :
-    m_children(std::vector<Shape*>{}),
-    m_transform(std::optional<Matrix>{}),
-    m_material(Material{}) {}
-
-Group::Group(Matrix transform) :
-    m_children(std::vector<Shape*>{}),
-    m_transform(std::optional<Matrix>{transform}),
-    m_material(Material{}) {}
-
-Group::Group(Material &material) :
-    m_children(std::vector<Shape*>{}),
-    m_transform(std::optional<Matrix>{}),
-    m_material(material) {}
-
-void Group::setTransform(Matrix &matrix) {
-    m_transform = std::optional<Matrix>{matrix};
-}
-
-void Group::setMaterial(Material &material) {
-    m_material = material;
-}
+Group::Group(const Transform *objectToWorld, const Transform *worldToObject,
+            bool reverseOrientation) :
+        Shape(objectToWorld, worldToObject, reverseOrientation),
+    m_children(std::vector<Shape*>{}) {}
 
 void Group::extendBounds(Shape* shape) {
     Bounds child_bounds = childBounds(shape);
@@ -33,7 +15,7 @@ void Group::extendBounds(Shape* shape) {
 void Group::addShape(Shape* shape) {
     extendBounds(shape);
     shape->setParent(this);
-    shape->setMaterial(m_material);
+    shape->material = material;
     m_children.push_back(shape);
 }
 
@@ -48,11 +30,11 @@ bool Group::includes(Shape* other) {
 void Group::findIntersection(Ray &givenRay, Intersections &solutions) {
     float xmin, xmax, ymin, ymax, zmin, zmax;
 
-    checkAxis(givenRay.origin().x, givenRay.direction().x, &xmin, &xmax,
+    checkAxis(givenRay.origin.x, givenRay.direction.x, &xmin, &xmax,
         m_bounds.min().x, m_bounds.max().x);
-    checkAxis(givenRay.origin().y, givenRay.direction().y, &ymin, &ymax,
+    checkAxis(givenRay.origin.y, givenRay.direction.y, &ymin, &ymax,
         m_bounds.min().y, m_bounds.max().y);
-    checkAxis(givenRay.origin().z, givenRay.direction().z, &zmin, &zmax,
+    checkAxis(givenRay.origin.z, givenRay.direction.z, &zmin, &zmax,
         m_bounds.min().z, m_bounds.max().z);
 
     float tmin = std::fmax(xmin, std::fmax(ymin, zmin));
@@ -83,6 +65,6 @@ void Group::checkAxis(float origin, float direction,
     }
 }
 
-Tuple Group::surfaceNormal(Tuple &position, Intersection &i) {
-    return Point(0, 0, 0);
+ Vector3f Group::surfaceNormal(Vector3f &position, Intersection &i); {
+    return Point3f(0, 0, 0);
 }

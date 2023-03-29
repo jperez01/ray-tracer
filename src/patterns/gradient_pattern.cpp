@@ -4,25 +4,18 @@
 GradientPattern::GradientPattern(Color &a, Color &b) :
     m_colora(a),
     m_colorb(b),
-    m_transform(std::optional<Matrix>{}) {}
+    m_transform(Transform()) {}
 
-GradientPattern::GradientPattern(Color &a, Color &b, Matrix transform) :
+GradientPattern::GradientPattern(Color &a, Color &b, Transform transform) :
     m_colora(a),
     m_colorb(b),
-    m_transform(std::optional<Matrix>{transform}) {}
+    m_transform(transform) {}
 
-Color GradientPattern::getColorAt(Tuple &point, Shape &shape) {
-    Tuple object_point;
-    if (shape.transform().has_value()) {
-        Matrix inverse = shape.transform().value().inverse();
-        object_point = inverse * point;
-    } else object_point = point;
+Color GradientPattern::getColorAt(Point3f &point, Transform& transform) {
+    Point3f object_point = transform(point);
 
-    Tuple pattern_point;
-    if (m_transform.has_value()) {
-        Matrix inverse = m_transform.value().inverse();
-        pattern_point = inverse * object_point;
-    } else pattern_point = object_point;
+    Transform inverse = m_transform.GetInverseMatrix();
+    Point3f pattern_point = inverse(object_point);
 
     Color color_distance = m_colorb - m_colora;
     float fraction = pattern_point.x - floor(pattern_point.x);
@@ -30,7 +23,7 @@ Color GradientPattern::getColorAt(Tuple &point, Shape &shape) {
     return m_colora + color_distance * fraction;
 }
 
-Color GradientPattern::getColorAt(Tuple &point) {
+Color GradientPattern::getColorAt(Point3f &point) {
     Color color_distance = m_colorb - m_colora;
     float fraction = point.x - floor(point.x);
 

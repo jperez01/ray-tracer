@@ -1,24 +1,18 @@
 #ifndef RTC_LIGHT_POINT
 #define RTC_LIGHT_POINT
 
-#include "primitives/tuple.h"
 #include "primitives/color.h"
 #include "shapes/shape.h"
 
 class PointLight {
     public:
-        PointLight(Color color, Tuple position);
+        PointLight(Color color, Point3f position);
+        Color calculateColorFromPoint(Vector3f &normal, Point3f &position, const Vector3f &eye, Shape &shape, bool inShadow);
 
-        inline Color color() { return m_color; }
-        inline Tuple position() { return m_position; }
-
+        inline Point3f position() { return m_position; }
     private:
-        Tuple m_position;
+        Point3f m_position;
         Color m_color;
 };
-
-Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Material &material);
-Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Material &material, bool inShadow);
-Color calculateColorFromPoint(PointLight &light, Tuple &normal, Tuple &position, const Tuple &eye, Shape &shape, bool inShadow);
 
 #endif

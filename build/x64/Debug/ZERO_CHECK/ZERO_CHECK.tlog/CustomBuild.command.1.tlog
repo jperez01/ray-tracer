@@ -1,0 +1,10 @@
+^C:\USERS\JPABL\DOCUMENTS\PROJECTS\RAY-TRACER\BUILD\CMAKEFILES\6D67B06B731854D394523567C7816099\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jpabl/Documents/projects/ray-tracer -BC:/Users/jpabl/Documents/projects/ray-tracer/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/jpabl/Documents/projects/ray-tracer/build/rayTracer.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

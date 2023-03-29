@@ -7,7 +7,7 @@ Id flags:
 The output was:
 0
 MSBuild version 17.5.0+6f08c67f3 for .NET Framework
-Build started 3/28/2023 1:10:27 PM.
+Build started 3/28/2023 1:14:36 PM.
 Included response file: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.rsp
 
 Project "C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\3.22.1\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
@@ -44,7 +44,7 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.41
+Time Elapsed 00:00:01.25
 
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -61,7 +61,7 @@ Id flags:
 The output was:
 0
 MSBuild version 17.5.0+6f08c67f3 for .NET Framework
-Build started 3/28/2023 1:10:29 PM.
+Build started 3/28/2023 1:14:38 PM.
 Included response file: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.rsp
 
 Project "C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\3.22.1\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
@@ -98,7 +98,7 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.00
+Time Elapsed 00:00:01.04
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -110,26 +110,76 @@ The CXX compiler identification is MSVC, found in "C:/Users/jpabl/Documents/proj
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: C:/Users/jpabl/Documents/projects/ray-tracer/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_fa226.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_e1c07.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
 
   Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
   CMakeCCompilerABI.c
   Copyright (C) Microsoft Corporation.  All rights reserved.
-  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fa226.dir\Debug\\" /Fd"cmTC_fa226.dir\Debug\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCCompilerABI.c"
-  cmTC_fa226.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_fa226.exe
+  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e1c07.dir\Debug\\" /Fd"cmTC_e1c07.dir\Debug\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCCompilerABI.c"
+  cmTC_e1c07.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_e1c07.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: C:/Users/jpabl/Documents/projects/ray-tracer/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_4ec3d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_af7d6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
 
   Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
   CMakeCXXCompilerABI.cpp
   Copyright (C) Microsoft Corporation.  All rights reserved.
-  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4ec3d.dir\Debug\\" /Fd"cmTC_4ec3d.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_4ec3d.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_4ec3d.exe
+  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_af7d6.dir\Debug\\" /Fd"cmTC_af7d6.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_af7d6.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_af7d6.exe
 
 
+
+Performing C++ SOURCE FILE Test HAVE_CONSTEXPR succeeded with the following output:
+Change Dir: C:/Users/jpabl/Documents/projects/ray-tracer/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_f4b5f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_CONSTEXPR /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f4b5f.dir\Debug\\" /Fd"cmTC_f4b5f.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\src.cxx"
+  cmTC_f4b5f.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_f4b5f.exe
+
+
+Source file was:
+int main() { constexpr int x = 0; }
+Performing C++ SOURCE FILE Test HAVE_THREAD_LOCAL succeeded with the following output:
+Change Dir: C:/Users/jpabl/Documents/projects/ray-tracer/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_fc338.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_THREAD_LOCAL /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fc338.dir\Debug\\" /Fd"cmTC_fc338.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\src.cxx"
+  cmTC_fc338.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_fc338.exe
+
+
+Source file was:
+
+#ifdef __CYGWIN__
+// Hack to work around https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64697
+#error "No thread_local on cygwin"
+#endif  // __CYGWIN__
+thread_local int x; int main() { }
+
+Performing C++ SOURCE FILE Test HAVE_DECLSPEC_THREAD succeeded with the following output:
+Change Dir: C:/Users/jpabl/Documents/projects/ray-tracer/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_a821c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /I"C:\dev\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_DECLSPEC_THREAD /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a821c.dir\Debug\\" /Fd"cmTC_a821c.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\src.cxx"
+  cmTC_a821c.vcxproj -> C:\Users\jpabl\Documents\projects\ray-tracer\build\CMakeFiles\CMakeTmp\Debug\cmTC_a821c.exe
+
+
+Source file was:
+
+__declspec(thread) int x; int main() { }
 
