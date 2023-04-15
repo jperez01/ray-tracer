@@ -10,13 +10,12 @@ Computations::Computations(Intersection &hit, Ray &ray) {
     eye = -ray.direction;
     normal = object->surfaceNormal(point, hit);
 
-    reflect = Reflect(ray.direction, normal);
-
     if (Dot(normal, (Vector3f)eye) < 0.0) {
         isInside = true;
         normal = -normal;
     } else isInside = false;
 
+    reflect = Reflect(eye, normal);
     over_point = point + normal * 0.01;
 }
 
@@ -27,10 +26,6 @@ Computations::Computations(Intersection &hit, Ray &ray, Intersections &results) 
     point = ray.position(time);
     eye = -ray.direction;
     normal = object->globalNormal(point, hit);
-    over_point = point + normal * 0.01;
-    under_point = point - normal * 0.01;
-
-    reflect = Reflect(ray.direction, normal);
 
     std::vector<Shape*> containers;
     
@@ -53,4 +48,9 @@ Computations::Computations(Intersection &hit, Ray &ray, Intersections &results) 
         isInside = true;
         normal = -normal;
     } else isInside = false;
+
+    over_point = point + normal * 0.01;
+    under_point = point - normal * 0.01;
+
+    reflect = Reflect(ray.direction, normal);
 }

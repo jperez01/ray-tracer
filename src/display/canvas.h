@@ -16,11 +16,14 @@ class Canvas {
         int height() { return height_; }
 
         float* data() { return this->data_; }
+        char* convertedData() { return this->converted_data; }
 
     private:
         int width_;
         int height_;
         float *data_;
+
+        char *converted_data;
 };
 
 #endif

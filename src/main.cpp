@@ -7,6 +7,8 @@
 
 #include "primitives/math.h"
 
+#include "stb_image_write.h"
+
 #include <string>
 #include <vector>
 #include <thread>
@@ -36,7 +38,7 @@ void handleRay(std::queue<int> *queue, Canvas &canvas, World &world, Camera &cam
 
         for (int y = 0; y < camera.vsize(); y++) {
             Ray ray = camera.calculateRayForPixel(x, y);
-            Color result = world.colorAt(ray, background, 5);
+            Color result = world.colorAt(ray, background, 10);
 
             canvas.writePixel(x, y, result);
         }
@@ -50,7 +52,7 @@ void newHandleRay(int startRow, int endRow, Canvas &canvas, World &world, Camera
 
         for (int y = 0; y < camera.vsize(); y++) {
             Ray ray = camera.calculateRayForPixel(startRow, y);
-            Color result = world.colorAt(ray, background, 5);
+            Color result = world.colorAt(ray, background, 15);
 
             canvas.writePixel(startRow, y, result);
         }
@@ -72,20 +74,28 @@ int main() {
     Transform someTransform = pbrt::Translate(Vector3f(-0.5f, 1.0f, 25.0f));
     Transform someInverse = Inverse(someTransform);
     Sphere middle_sphere(&someTransform, &someInverse, false, 10.0f);
+    middle_sphere.material.reflective = 0.8f;
 
     Transform transform2 = pbrt::Translate(Vector3f(5.0f, 0.0f, 15.0f));
     Transform inverse2 = Inverse(transform2);
     Sphere second_sphere(&transform2, &inverse2, false, 10.0f);
+    middle_sphere.material.reflective = 0.8f;
+
+    Transform transform3 = pbrt::Translate(Vector3f(-10.0f, 0.0f, 25.0f));
+    Transform inverse3 = Inverse(transform3);
+    Sphere third_sphere(&transform3, &inverse3, false, 20.0f);
+    third_sphere.material.reflective = 0.8f;
 
     objects.push_back(&middle_sphere);
     objects.push_back(&second_sphere);
+    objects.push_back(&third_sphere);
 
     std::vector<PointLight> pointLights;
-    Color pointColor(0.6, 0.0, 0.0);
+    Color pointColor(0.4, 0.0, 0.0);
     Point3f lightPosition = Point3f(-30.0, 0.0, 0.0);
     pointLights.push_back(PointLight(pointColor, lightPosition));
 
-    Color otherColor(0.0, 0.0, 0.6);
+    Color otherColor(0.0, 0.0, 0.4);
     Point3f lightPosition2 = Point3f(20.0, 0.0, 0.0);
     pointLights.push_back(PointLight(otherColor, lightPosition2));
 
@@ -118,7 +128,11 @@ int main() {
 
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     
-    std::cout << "Spent around: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
+    std::cout << "Spent around: " << 
+        std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() 
+        << "ms" << std::endl;
+
+    int result = stbi_write_png("result.png", canvas.width(), canvas.height(), 3, canvas.convertedData(), 3 * canvas.width());
     PMMWriter writer = PMMWriter(&canvas);
     std::string filename = "result.ppm";
     writer.writeFile(filename);

@@ -118,6 +118,24 @@ add_library(
 target_include_directories(patterns PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/include)
 
+add_library(
+    samplers
+    samplers/stratified.cpp
+)
+target_include_directories(samplers PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+${PROJECT_SOURCE_DIR}/include)
+
+add_library(
+    filters
+    filters/boxFilter.h
+    filters/gaussianFilter.h
+    filters/lanczosFilter.h
+    filters/mitchellFilter.h
+    filters/triangleFilter.h
+)
+target_include_directories(filters PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+${PROJECT_SOURCE_DIR}/include)
+
 add_executable(mainWriter ./main.cpp)
-target_link_libraries(mainWriter glog::glog primitives core materials display 
-  shapes images lights scene patterns)
+target_link_libraries(mainWriter glog::glog primitives core filters samplers materials display 
+  shapes images lights scene patterns stb_image)
