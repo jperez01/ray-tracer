@@ -1,29 +1,28 @@
 #include "lights/direction_light.h"
-#include "primitives/color.h"
+#include "core/reflection.h"
 
 #include <math.h>
 
-DirectionalLight::DirectionalLight(Tuple direction, Color color) {
+DirectionalLight::DirectionalLight(Vector3f direction, Color color) {
     m_color = color;
     m_direction = direction;
 }
 
-Color calculateColorFromDirection(DirectionalLight &light, Tuple &normal, const Tuple &eye, Shape *shape) {
-    Tuple lightDir = -light.direction();
-    lightDir = lightDir.normalized();
+Color DirectionalLight::calculateColorFromDirection(Vector3f &normal, const Vector3f &eye, Shape *shape) {
+    Vector3f lightDir = Normalize(-m_direction);
     
-    Material material = shape->material();
-    Color effectiveColor = light.color() * material.color();
+    Material material = shape->material;
+    Color effectiveColor = m_color * material.color;
 
-    Color ambient = effectiveColor * material.ambient();
+    Color ambient = effectiveColor * material.ambient;
 
-    float diffuseIntensity = fmaxf(dot(lightDir, normal), 0.0);
-    Color diffuse = diffuseIntensity * effectiveColor * material.diffuse();
+    float diffuseIntensity = fmaxf(Dot(lightDir, normal), 0.0);
+    Color diffuse = diffuseIntensity * effectiveColor * material.diffuse;
 
-    Tuple reflectedVector = reflect(-lightDir, normal);
-    float specularIntensity = fmaxf(dot(reflectedVector, eye), 0.0);
-    float factor = powf(specularIntensity, material.shininess());
-    Color specular = factor * effectiveColor * material.specular();
+    Vector3f reflectedVector = Reflect(-lightDir, normal);
+    float specularIntensity = fmaxf(Dot(reflectedVector, eye), 0.0);
+    float factor = powf(specularIntensity, material.shininess);
+    Color specular = factor * effectiveColor * material.specular;
     
     return ambient + diffuse + specular;
 }

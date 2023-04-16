@@ -1,9 +1,23 @@
 #include "shapes/shape.h"
 
-Tuple Shape::globalNormal(Tuple &position, Intersection &i) {
+Shape::Shape() :
+    Shape(nullptr, nullptr, false) {
+        material = Material();
+    }
+
+Shape::Shape(const Transform *objectToWorld, const Transform *worldToObject,
+            bool reverseOrientation) :
+    objectToWorld(objectToWorld), worldToObject(worldToObject),
+    reverseOrientation(reverseOrientation) {
+        if (objectToWorld != nullptr) transformSwapsHandedness = objectToWorld->SwapsHandedness();
+        else transformSwapsHandedness = false;
+        material = Material();
+    }
+
+Vector3f Shape::globalNormal(Point3f &position, Intersection &i) {
     Shape* shape = this;
-    Tuple local_point = worldToObject(shape, position);
-    Tuple local_normal = shape->surfaceNormal(local_point, i);
+    Point3f local_point = convertWorldToObject(shape, position);
+    Vector3f local_normal = shape->surfaceNormal(local_point, i);
 
     return normalToWorld(shape, local_normal);
 }
@@ -12,26 +26,20 @@ bool Shape::includes(Shape *other) {
     return this == other;
 }
 
-Tuple worldToObject(Shape* &shape, Tuple &point) {
-    Tuple resultPoint;
+Point3f convertWorldToObject(Shape* &shape, Point3f &point) {
+    Point3f resultPoint;
     if (shape->parent() != nullptr) {
         Shape *parent = shape->parent();
-        resultPoint = worldToObject(parent, point);
+        resultPoint = convertWorldToObject(parent, point);
     } else resultPoint = point;
 
-    if (shape->transform().has_value()) {
-        return shape->transform().value().inverse() * resultPoint;
-    } else return resultPoint;
+    return (*shape->worldToObject)(resultPoint);
 }
 
-Tuple normalToWorld(Shape* &shape, Tuple &normal) {
-    Tuple resultNormal;
-    if (shape->transform().has_value()) {
-        Matrix transpose = shape->transform().value().inverse().transpose();
-        resultNormal = transpose * normal;
-        resultNormal.w = 0;
-        resultNormal = resultNormal.normalized();
-    } else resultNormal = normal;
+Vector3f normalToWorld(Shape* &shape, Vector3f &normal) {
+    Vector3f resultNormal;
+    Transform transpose = Transpose(*shape->worldToObject);
+    resultNormal = Normalize(transpose(normal));
 
     if (shape->parent() != nullptr) {
         Shape* parent = shape->parent();
@@ -40,7 +48,7 @@ Tuple normalToWorld(Shape* &shape, Tuple &normal) {
 }
 
 Bounds Shape::unitBounds() {
-    return Bounds(Point(-1, -1, -1), Point(1, 1, 1));
+    return Bounds(Point3f(-1, -1, -1), Point3f(1, 1, 1));
 }
 
 Bounds childBounds(Shape *child) {
@@ -53,25 +61,19 @@ Bounds childBounds(Shape *child) {
     float yd = unit_bounds.max().y - yc;
     float zd = unit_bounds.max().z - zc;
 
-    Tuple center_point = Point(xc, yc, zc);
+    Point3f center_point(xc, yc, zc);
     Bounds child_bounds = unit_bounds;
-    if (child->transform().has_value()) {
-        child_bounds = Bounds(child->transform().value() * center_point, child->transform().value() * center_point);
-    } else {
-        child_bounds = Bounds(center_point, center_point);
-    }
+    auto finalPoint = (*child->objectToWorld)(center_point);
+    child_bounds = Bounds(finalPoint, finalPoint);
     
     for (float x = -1; x < 2; x += 2) {
         for (float y = -1; y < 2; y += 2) {
             for (float z = -1; z < 2; z += 2) {
-                Tuple corner_vector = Vector(x * xd, y * yd, z * zd);
-                Tuple corner = center_point + corner_vector;
-                if (child->transform().has_value()) {
-                    Tuple transformed_corner = child->transform().value() * corner;
-                    child_bounds.extendTo(transformed_corner);
-                } else {
-                    child_bounds.extendTo(corner);
-                }
+                Vector3f corner_vector(x * xd, y * yd, z * zd);
+                Point3f corner = center_point + corner_vector;
+
+                Point3f transformed_corner = (*child->objectToWorld)(corner);
+                child_bounds.extendTo(transformed_corner);
             }
         }
     }

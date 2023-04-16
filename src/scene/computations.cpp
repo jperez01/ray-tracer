@@ -1,54 +1,56 @@
 #include "scene/computations.h"
+#include "core/reflection.h"
 #include <set>
 
 Computations::Computations(Intersection &hit, Ray &ray) {
-    m_time = hit.m_time;
-    m_object = hit.m_shape;
+    time = hit.m_time;
+    object = hit.m_shape;
 
-    m_point = ray.position(m_time);
-    m_eye = -ray.direction();
-    m_normal = m_object->surfaceNormal(m_point, hit);
-    m_over_point = m_point + m_normal * 0.01;
+    point = ray.position(time);
+    eye = -ray.direction;
+    normal = object->surfaceNormal(point, hit);
 
-    m_reflect = reflect(ray.direction(), m_normal);
+    if (Dot(normal, (Vector3f)eye) < 0.0) {
+        isInside = true;
+        normal = -normal;
+    } else isInside = false;
 
-    if (dot(m_normal, m_eye) < 0.0) {
-        m_inside = true;
-        m_normal = -m_normal;
-    } else m_inside = false;
+    reflect = Reflect(eye, normal);
+    over_point = point + normal * 0.01;
 }
 
 Computations::Computations(Intersection &hit, Ray &ray, Intersections &results) {
-    m_time = hit.m_time;
-    m_object = hit.m_shape;
+    time = hit.m_time;
+    object = hit.m_shape;
 
-    m_point = ray.position(m_time);
-    m_eye = -ray.direction();
-    m_normal = m_object->globalNormal(m_point, hit);
-    m_over_point = m_point + m_normal * 0.01;
-    m_under_point = m_point - m_normal * 0.01;
-
-    m_reflect = reflect(ray.direction(), m_normal);
+    point = ray.position(time);
+    eye = -ray.direction;
+    normal = object->globalNormal(point, hit);
 
     std::vector<Shape*> containers;
     
     for (Intersection &i : results.intersectionsList()) {
         if (i == hit) {
-            if (containers.empty()) m_refract1 = 1.0;
-            else m_refract1 = containers.back()->material().refractiveIndex();
+            if (containers.empty()) refract1 = 1.0f;
+            else refract1 = containers.back()->material.refractive_index;
         }
         std::vector<Shape*>::iterator it = std::find(containers.begin(), containers.end(), i.m_shape);
         if (it != containers.end()) containers.erase(it);
         else containers.push_back(i.m_shape);
 
         if (i == hit) {
-            if (containers.empty()) m_refract2 = 1.0;
-            else m_refract2 = containers.back()->material().refractiveIndex();
+            if (containers.empty()) refract2 = 1.0f;
+            else refract2 = containers.back()->material.refractive_index;
         }
     }
 
-    if (dot(m_normal, m_eye) < 0.0) {
-        m_inside = true;
-        m_normal = -m_normal;
-    } else m_inside = false;
+    if (Dot(normal, eye) < 0.0) {
+        isInside = true;
+        normal = -normal;
+    } else isInside = false;
+
+    over_point = point + normal * 0.01;
+    under_point = point - normal * 0.01;
+
+    reflect = Reflect(ray.direction, normal);
 }

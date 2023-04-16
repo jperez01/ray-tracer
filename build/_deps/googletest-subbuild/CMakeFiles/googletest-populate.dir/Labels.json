@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/273dff8ec6b40425d9b6a5f521bbf677/googletest-populate.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/f7478b5bf9b353cbe78cbc75adc34fe6/googletest-populate-complete.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-build.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-configure.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-download.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-install.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-mkdir.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-patch.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-test.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule"
 		},
 		{
-			"file" : "C:/Users/jpabl/Documents/projects/ray-tracer/build/_deps/googletest-subbuild/CMakeFiles/2d04fc128834ddefb715ade4fb4b3fd4/googletest-populate-update.rule"
+			"file" : "/home/juperez01/dev/ray-tracer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule"
 		}
 	],
 	"target" : 

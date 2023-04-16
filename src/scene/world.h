@@ -1,12 +1,8 @@
 #ifndef RTC_WORLD
 #define RTC_WORLD
 
-#include "shapes/shape.h"
 #include "lights/direction_light.h"
 #include "lights/point_light.h"
-#include "primitives/ray.h"
-#include "primitives/intersections.h"
-#include "primitives/color.h"
 #include "scene/computations.h"
 #include <vector>
 
@@ -26,7 +22,7 @@ class World {
         Color findReflection(Computations &info, int remaining = 0);
         Color findRefraction(Computations &info, int remaining = 0);
         float findReflectance(Computations &info);
-        bool isShadowed(Tuple &point, PointLight &light);
+        bool isShadowed(Point3f &point, PointLight &light);
 
         inline std::vector<Shape *> objects() { return m_objects; }
         inline std::vector<PointLight> pointLights() { return m_pointLights; }

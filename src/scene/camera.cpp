@@ -5,7 +5,7 @@ Camera::Camera() :
  m_hsize(1.0), 
  m_vsize(1.0), 
  m_field_of_view(1.0), 
- m_transform(identityMatrix(4)) {
+ m_transform(pbrt::Translate(Vector3f(0, 0, 0))) {
     calculatePixelSize();
  }
 
@@ -13,11 +13,11 @@ Camera::Camera(float hsize, float vsize, float angle) :
  m_hsize(hsize), 
  m_vsize(vsize), 
  m_field_of_view(angle), 
- m_transform(identityMatrix(4)) {
+ m_transform(pbrt::Translate(Vector3f(0, 0, 0))) {
     calculatePixelSize();
  }
 
-Camera::Camera(float hsize, float vsize, float angle, Matrix &transform) :
+Camera::Camera(float hsize, float vsize, float angle, Transform &transform) :
  m_hsize(hsize), 
  m_vsize(vsize), 
  m_field_of_view(angle), 
@@ -40,7 +40,7 @@ void Camera::calculatePixelSize() {
     m_pixel_size = m_half_width * 2 / m_hsize;
 }
 
-void Camera::setTransform(Matrix &transform) {
+void Camera::setTransform(Transform &transform) {
     m_transform = transform;
 }
 
@@ -51,10 +51,11 @@ Ray Camera::calculateRayForPixel(float x, float y) {
     float world_x = m_half_width - xoffset;
     float world_y = m_half_height - yoffset;
 
-    Matrix inverseTransform = m_transform.inverse();
-    Tuple pixel = inverseTransform * Point(world_x, world_y, -1.0);
-    Tuple origin = inverseTransform * Point(0, 0, 0);
-    Tuple direction = (pixel - origin).normalized();
+    Transform inverseTransform = m_transform.GetInverseMatrix();
+    Point3f pixel = inverseTransform(Point3f(world_x, world_y, -1.0));
+    Point3f origin = inverseTransform(Point3f(0, 0, 0));
+    Vector3f direction = Normalize(pixel - origin);
 
-    return Ray(origin, direction);
+    Ray newRay(origin, direction);
+    return newRay;
 }

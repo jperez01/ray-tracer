@@ -3,38 +3,47 @@
 
 class Intersections;
 class Intersection;
+
 #include <optional>
-#include "primitives/tuple.h"
-#include "primitives/matrix.h"
-#include "shapes/material.h"
+
+#include "materials/material.h"
+
 #include "primitives/ray.h"
 #include "primitives/intersections.h"
+
 #include "shapes/bounds.h"
+
+#include "core/transform.h"
+using pbrt::Transform;
 
 class Shape {
     public:
+        Shape();
+        Shape(const Transform *objectToWorld, const Transform *worldToObject,
+            bool reverseOrientation);
         virtual ~Shape() { }
 
         Bounds unitBounds();
-        Tuple globalNormal(Tuple &position, Intersection &i);
+        Vector3f globalNormal(Point3f &position, Intersection &i);
         bool includes(Shape *other);
         
-        virtual Tuple surfaceNormal(Tuple &position, Intersection &i) = 0;
+        virtual Vector3f surfaceNormal(Point3f &position, Intersection &i) = 0;
         virtual void findIntersection(Ray &ray, Intersections &solutions) = 0;
 
-        virtual Material material() = 0;
-        virtual void setMaterial(Material &material) = 0;
-        virtual std::optional<Matrix> transform() = 0;
-        virtual void setTransform(Matrix &transform) = 0;
         inline Shape* parent() { return m_parent; }
         inline void setParent(Shape* shape) { m_parent = shape; }
+
+        const Transform *objectToWorld, *worldToObject;
+        bool reverseOrientation;
+        bool transformSwapsHandedness;
+        Material material;
 
     private:
         Shape* m_parent = nullptr;
 };
 
-Tuple worldToObject(Shape* &shape, Tuple &point);
-Tuple normalToWorld(Shape* &shape, Tuple &normal);
+Point3f convertWorldToObject(Shape* &shape, Point3f &point);
+Vector3f normalToWorld(Shape* &shape, Vector3f &normal);
 Bounds childBounds(Shape *child);
 
 #endif

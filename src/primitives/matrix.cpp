@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <math.h>
+#include <cstring>
 
 Matrix::Matrix(int h, int w) {
     height_ = h;
@@ -32,13 +33,13 @@ Matrix::Matrix(int h, int w, std::vector<float> values) {
 Matrix &Matrix::operator=(const Matrix& matrix) {
     if (*this != matrix) {
         if (width_ == matrix.width() && height_ == matrix.height()) {
-            memcpy(data, matrix.data, width_ * height_ * sizeof(float));
+            std::memcpy(data, matrix.data, width_ * height_ * sizeof(float));
         } else {
             width_ = matrix.width();
             height_ = matrix.height();
             free(data);
             data = (float *) malloc(height_ * width_ * sizeof(float));
-            memcpy(data, matrix.data, height_ * width_ * sizeof(float));
+            std::memcpy(data, matrix.data, height_ * width_ * sizeof(float));
         }
     }
     return *this;

@@ -1,29 +1,26 @@
 #ifndef RTC_RAY
 #define RTC_RAY
 
-#include "primitives/tuple.h"
-#include "primitives/matrix.h"
+#include "core/transform.h"
 #include <string>
+
+using pbrt::Transform;
+using pbrt::Point3f;
+using pbrt::Vector3f;
 
 class Ray {
 
     public:
         Ray();
-        Ray(Tuple origin, Tuple direction);
+        Ray(Point3f origin, Vector3f direction);
 
-        Tuple position(float time);
+        Point3f position(float time);
         std::string debugString();
 
-        inline Tuple origin() { return m_origin; }
-        inline Tuple direction() { return m_direction; }
-        void setOrigin(Tuple origin);
-        void setDirection(Tuple direction);
-    
-    private:
-        Tuple m_origin;
-        Tuple m_direction;
+        Point3f origin;
+        Vector3f direction;
 };
 
-Ray transformRay(Ray &ray, Matrix &matrix);
+Ray transformRay(Ray &ray, Transform &matrix);
 
 #endif

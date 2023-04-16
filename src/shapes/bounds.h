@@ -1,22 +1,26 @@
-#pragma once
+#ifndef RTC_BOUNDS
+#define RTC_BOUNDS
 
-#include "primitives/matrix.h"
-#include "primitives/tuple.h"
+#include "core/geometry.h"
+using pbrt::Point3f;
+using pbrt::Vector3f;
 
 class Bounds {
     public:
         Bounds();
-        Bounds(Tuple min, Tuple max);
+        Bounds(Point3f min, Point3f max);
         ~Bounds() = default;
 
-        void extendTo(Tuple &point);
+        void extendTo(Point3f &point);
         void merge(Bounds &other);
-        Tuple center();
+        Point3f center();
 
-        inline Tuple max() { return m_max; }
-        inline Tuple min() { return m_min; }
+        inline Point3f max() { return m_max; }
+        inline Point3f min() { return m_min; }
 
     private:
-        Tuple m_min;
-        Tuple m_max;
+        Point3f m_min;
+        Point3f m_max;
 };
+
+#endif
