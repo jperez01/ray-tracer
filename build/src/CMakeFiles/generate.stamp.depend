@@ -1,8 +1,0 @@
-# CMake generation dependency list for this directory.
-C:/Program Files (x86)/glog/lib/cmake/glog/glog-config-version.cmake
-C:/Program Files (x86)/glog/lib/cmake/glog/glog-config.cmake
-C:/Program Files (x86)/glog/lib/cmake/glog/glog-modules.cmake
-C:/Program Files (x86)/glog/lib/cmake/glog/glog-targets-release.cmake
-C:/Program Files (x86)/glog/lib/cmake/glog/glog-targets.cmake
-C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake
-C:/Users/jpabl/Documents/projects/ray-tracer/src/CMakeLists.txt

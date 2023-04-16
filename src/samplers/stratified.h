@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sampler.h"
-#include "sampling.h"
+#include "core/sampler.h"
+#include "core/sampling.h"
 
 namespace pbrt {
 

@@ -4,7 +4,7 @@
 #include <cmath>
 
 const float EPSILON = 0.00001;
-const float M_PI = 3.14159265358979323846264338327950288;
+
 
 const float GROUP_INFINITE_BIGNUM = 10e6;
 

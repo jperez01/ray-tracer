@@ -107,7 +107,7 @@ int main() {
 
     World world(objects, dirLights, pointLights);
 
-    auto processor_count = std::thread::hardware_concurrency() - 3;
+    auto processor_count = std::thread::hardware_concurrency() - 2;
     int range = camera.hsize() / processor_count;
 
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
