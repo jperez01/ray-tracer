@@ -13,6 +13,10 @@ Material::Material() :
     transparency(0.0),
     refractive_index(VACUUM) {}
 
+Material::Material(Color &c, float amb, float spec, float diff, float shin)
+ : ambient(amb), diffuse(diff), specular(spec), shininess(shin), color(c),
+    pattern(nullptr), reflective(false), transparency(0.0), refractive_index(VACUUM) {}
+
 bool Material::operator==(Material &material) {
     return this->color == material.color
     && epsilon_eq(this->ambient, material.ambient)

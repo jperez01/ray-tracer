@@ -7,6 +7,7 @@ static const float VACUUM = 1.0, AIR = 1.00029, WATER = 1.333, GLASS = 1.52, DIA
 class Material {
 public:
     Material();
+    Material(Color &c, float amb, float spec, float diff, float shin);
     bool operator==(Material &material);
 
     Color color;
