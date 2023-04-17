@@ -69,6 +69,19 @@ int main() {
     Transform matrix = pbrt::LookAt(from, to, up);
     Camera camera(500.0, 500.0, M_PI/3, matrix);
 
+    Color whiteColor(1.0, 1.0, 1.0);
+    Material whiteMaterial(whiteColor, 0.1, 0.0, 0.7, 1.0);
+    whiteMaterial.reflective = 0.1;
+
+    Color blueColor(0.537, 0.831, 0.914);
+    Material blueMaterial(blueColor, 0.1, 0.0, 0.7, 0.1);
+
+    Color redColor(0.941, 0.322, 0.388);
+    Material redMaterial(redColor, 0.1, 0.0, 0.7, 0.1);
+
+    Color purpleColor(0.373, 0.404, 0.550);
+    Material purpleMaterial(blueColor, 0.1, 0.0, 0.7, 0.1);
+
     std::vector<Shape *> objects;
 
     Transform someTransform = pbrt::Translate(Vector3f(-0.5f, 1.0f, 25.0f));
@@ -86,6 +99,23 @@ int main() {
     Sphere third_sphere(&transform3, &inverse3, false, 20.0f);
     third_sphere.material.reflective = 0.8f;
 
+    Transform standardTrans = pbrt::Translate(Vector3f(5.0f, 0.0f, 15.0f)) * pbrt::Scale(0.5, 0.5, 0.5);
+    Transform largeObject = pbrt::Scale(3.5, 3.5, 3.5) * standardTrans;
+    Transform mediumObject = pbrt::Scale(3, 3, 3) * standardTrans;
+    Transform smallObject = pbrt::Scale(2, 2, 2) * standardTrans;
+
+    Transform largeInverse = Inverse(largeObject);
+    Transform mediumInverse = Inverse(mediumObject);
+    Transform smallInverse = Inverse(smallObject);
+    
+    Material sphereMaterial(purpleColor, 0.0, 1.0, 0.2, 200);
+    sphereMaterial.reflective = 0.7;
+    sphereMaterial.transparency = 0.7;
+    sphereMaterial.refractive_index = 1.5;
+    Sphere sphere(&largeObject, &largeInverse, false, 10.0f);
+    sphere.material = sphereMaterial;
+
+    objects.push_back(&sphere);
     objects.push_back(&middle_sphere);
     objects.push_back(&second_sphere);
     objects.push_back(&third_sphere);
