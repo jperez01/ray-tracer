@@ -58,7 +58,8 @@
 #endif
 #include <assert.h>
 #include <string.h>
-#include <glog/logging.h>
+#define GLOG_NO_ABBREVIATED_SEVERITIES
+#include "glog/logging.h"
 
 // Platform-specific definitions
 #if defined(_WIN32) || defined(_WIN64)

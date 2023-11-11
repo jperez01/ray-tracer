@@ -1,4 +1,5 @@
-find_package(glog REQUIRED)
+find_package(glog CONFIG REQUIRED)
+message("${glog_DIR}")
 
 add_library(core
     core/pbrt.h
@@ -21,7 +22,6 @@ add_library(core
     core/material.cpp
     core/sampler.cpp
     core/stringprint.h)
-
 target_include_directories(core PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/include)
@@ -32,7 +32,6 @@ add_library(primitives
     primitives/tuple.cpp
     primitives/intersections.cpp
     primitives/ray.cpp)
-
 target_include_directories(primitives PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/include
@@ -107,15 +106,9 @@ ${PROJECT_SOURCE_DIR}/include)
 
 add_library(
     filters
-    filters/boxFilter.hpp
-    filters/gaussianFilter.hpp
-    filters/lanczosFilter.hpp
-    filters/mitchellFilter.hpp
-    filters/triangleFilter.hpp
-)
+    filters/allFilters.cpp)
 target_include_directories(filters PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/include)
-set_target_properties(filters PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(shapes materials primitives)
 target_link_libraries(scene lights)

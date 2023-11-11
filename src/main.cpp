@@ -67,7 +67,7 @@ int main() {
     Point3f to = Point3f(0.0, 0.0, 0.0);
     Vector3f up = Vector3f(0.0, 1.0, 0.0);
     Transform matrix = pbrt::LookAt(from, to, up);
-    Camera camera(500.0, 500.0, M_PI/3, matrix);
+    Camera camera(500.0, 500.0, PI/3, matrix);
 
     Color whiteColor(1.0, 1.0, 1.0);
     Material whiteMaterial(whiteColor, 0.1, 0.0, 0.7, 1.0);
